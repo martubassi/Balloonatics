@@ -239,7 +239,7 @@ Esta mecánica ayuda a que el movimiento se sienta preciso y justo. El jugador d
 
 Un ejemplo visual del Coyote timing en el videojuego Celeste:
 
-![][images/image1.gif]
+![Ejemplo del juego celeste sobre el Coyote Timing](images/image1.gif)
 
 5. ## ***Power Ups*** {#power-ups}
 
