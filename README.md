@@ -15,255 +15,354 @@
 | **Arturo de María García Díaz** | [am.garciad.2024@alumnos.urjc.es](mailto:am.garciad.2024@alumnos.urjc.es) | [@ElPapiVikG](https://github.com/ElPapiVikG) |
 
 
+![Rey Juan Carlos Logo][image1]
 
 **Balloonatics**   
 **Game Design Document**
 
-by Arturo de Maria Garcia, Bassi Martina, Dario Ayala and Mateo Gonzalez
+**Autores**
+
+Martina Bassi
+
+Dario Ayala Alocén
+
+Mateo González Falquina
+
+Arturo de María García Díaz
 
 Sep 2026 **|** Business Confidential
 
-**Índice**
+# **ÍNDICE** {#índice}
 
-**[● Descripción general	3](#descripción-general)**
+[**ÍNDICE	2**](#índice)
 
-[**● Premisa principal	4**](#premisa-principal)
+[1.1. Concepto del juego	3](#concepto-del-juego)
 
-[A Concepto del juego	4](#concepto-del-juego)
+[1.2. Propuesta de valor	3](#propuesta-de-valor)
 
-[B Experiencia deseada	4](#experiencia-deseada)
+[3.1. Objetivo del juego	4](#objetivo-del-juego)
 
-[C Diferencias con juegos similares	4](#diferencias-con-juegos-similares)
+[3.2. Controles	4](#controles)
 
-[D Género	6](#género)
+[3.3. Mecánicas	5](#mecánicas)
 
-[E Inspiración	6](#inspiración)
+[3.3.1. Mecánicas principales	5](#mecánicas-principales)
 
-[F Público objetivo	6](#público-objetivo)
+[3.3.2. Objetos y power-ups	5](#objetos-y-power-ups)
 
-[**● Interfaz de usuario y controles	8**](#interfaz-de-usuario-y-controles)
+[3.4. Físicas y dificultad	6](#físicas-y-dificultad)
 
-[A Descripción general	8](#descripción-general-1)
+[3.5. Escenario	7](#escenario)
 
-[B Interfaz de usuario	8](#interfaz-de-usuario)
+[4.1. Historia	7](#historia)
 
-[C Asignación de controles	10](#asignación-de-controles)
+[4.2. Personajes	7](#personajes)
 
-[**● Gameplay	11**](#gameplay)
+[**5\. Imagen y diseño visual	9**](#imagen-y-diseño-visual)
 
-[A Descripción general	11](#descripción-general-2)
+[5.1. Logotipo	9](#logotipo)
 
-[B Mecánica de velocidad	11](#mecánica-de-velocidad)
+[5.2. Estilo visual	9](#estilo-visual)
 
-[C Movimiento	13](#movimiento)
+[5.3. Uso de colores	9](#uso-de-colores)
 
-[D Coyote Timing	13](#coyote-timing)
+[5.4. Aspectos técnicos: cámara y representación	9](#aspectos-técnicos:-cámara-y-representación)
 
-[E Power Ups	15](#power-ups)
+[5.5. Inspiración artística y cultural	9](#inspiración-artística-y-cultural)
 
-[F Dynamics and expected situations	15](#heading=h.hkpnlwv2jq3a)
+[5.6. Bocetos de personajes y pantallas	10](#bocetos-de-personajes-y-pantallas)
 
-[G Condición de Victoria	16](#condición-de-victoria-/-derrota)
+[**6\. Sonido	10**](#sonido)
 
-[H Condición de Derrota	17](#heading=h.e5zwc3wm5hdv)
+[6.1. Banda sonora	10](#banda-sonora)
 
-[**● Dirección de Arte	18**](#dirección-de-arte)
+[6.2. Efectos de sonido	10](#efectos-de-sonido)
 
-[A Descripción general	18](#descripción-general-3)
+[**7\. Interfaz y diagrama de flujo	12**](#interfaz-y-diagrama-de-flujo)
 
-[**● Musica y Sonido	19**](#musica-y-sonido)
+[7.1. Pantallas	12](#pantallas)
 
-[A Descripción general	19](#descripción-general-4)
+[7.1.1. Arte principal \+ Logo	12](#arte-principal-+-logo)
 
-[B Sonido	19](#sonido)
+[7.1.2. Menú principal	12](#menú-principal)
 
-* # **Descripción general** {#descripción-general}
+[7.1.3. Seleccionar Mapa	12](#seleccionar-mapa)
 
-El propósito de este documento es planificar de manera organizada el desarrollo del videojuego **Balloonatics**, guardar las ideas para pulirlas, dar acceso al equipo de desarrollo a la información clave, y en caso de que se añada un nuevo miembro al equipo.
+[7.1.4. Selector local/online	13](#selector-local/online)
 
-* # **Premisa principal** {#premisa-principal}
+[7.1.5. Gameplay	13](#gameplay)
 
-  1. ## ***Concepto del juego*** {#concepto-del-juego}
+[7.1.6. Resultado	14](#resultado)
 
-**“Balloonatics”** es un juego de plataformas cooperativo en 2D donde dos jugadores deben mantener a flote un globo compartido a lo largo de niveles de pantalla fija. Si el globo toca el suelo o se revienta, se pierde una vida, lo que exige una gran coordinación, saltos precisos y reflejos rápidos para sobrevivir.
+[7.1.7. Pausa	15](#pausa)
 
-2. ## ***Experiencia deseada*** {#experiencia-deseada}
+[7.1.8. Opciones	16](#opciones)
 
-Al jugar a **Balloonatics**, los jugadores deben sentir la emoción intensa y caótica de una coordinación de alto riesgo y reflejos rápidos. Mantener el globo en el aire con éxito mientras navegan por la arena debe hacer que los jugadores se sientan sincronizados, ágiles y eufóricos bajo presión.
+[7.1.9. Salir	17](#salir)
 
-Las mecánicas centrales que impulsan esta sensación incluyen un plataformeo 2D preciso, físicas dinámicas para la trayectoria del globo y una constante comunicación verbal o no verbal entre ambos jugadores. Para ofrecer un desafío significativo y un alto nivel de enganche, el juego se apoya en diseños de arena ajustados de pantalla fija, obstáculos peligrosos en los escenarios y una velocidad creciente combinada con rebotes impredecibles que exigen conciencia espacial y toma de decisiones en fracciones de segundo.
+[7.1.10. Créditos	17](#créditos)
 
-Resumir cómo debería sentirse el jugador en una sola frase sería: **“Electrizado, en perfecta sincronía y al borde del asiento”**. Cada decisión de diseño debe reforzar esta tensión trepidante y una gratificante sinergia de equipo.
+[7.2. Diagrama de flujo	18](#diagrama-de-flujo)
 
-3. ## ***Diferencias con juegos similares*** {#diferencias-con-juegos-similares}
+[**8\. Comunicación y marketing	18**](#comunicación-y-marketing)
 
-"La competencia directa de **Balloonatics** no se encuentra en las aventuras complejas de puzles, sino entre los *party-platformers* 2D de ritmo frenético y los arcades cooperativos basados en físicas, centrados en la coordinación compartida, la comunicación inmediata y los reflejos bajo alta tensión. " 
+[**9\. Referencias	19**](#referencias)
 
-**Referencias:** 
+1. **Introducción**
 
-                                  **TowerFall Ascension  ([steam](https://store.steampowered.com/app/251470/TowerFall_Ascension/))**
+   1. ## Concepto del juego {#concepto-del-juego}
 
-Destaca por el diseño de sus arenas de pantalla fija y unas mecánicas de plataformas 2D precisas y responsivas que exigen una gran exactitud y una rápida percepción espacial.
+**“Balloonatics”** es un juego de **plataformas competitivo 2D** donde dos jugadores deben enfrentarse para no ser los últimos en tocar el globo una vez haya caído al suelo. Si el globo toca el suelo o se revienta, el jugador más reciente en tocar el globo pierde una vida, lo que exige combinación de estrategia competitiva, anticipación de los movimientos del rival, saltos precisos y reflejos rápidos.
 
-**Balloonatics**  sustituye el combate competitivo por un objetivo compartido: en lugar de eliminar a otros jugadores, la arena y sus peligros actúan como obstáculos mientras ambos jugadores recorren las plataformas para interceptar y mantener el globo en el aire.
+2. ## Propuesta de valor {#propuesta-de-valor}
 
-![][image1]
+Balloonatics transforma el clásico reto de «que no caiga el globo» en un **party-platformer competitivo 2D** de ritmo frenético. A diferencia de los juegos centrados en el combate directo, combina la dinámica del volleyball con el parkour en una arena llena de plataformas y paredes que permiten realizar saltos e intercepciones aéreas. Los jugadores deben golpear el globo hacia el terreno rival y anticiparse a los movimientos del oponente para provocar sus errores. Cada caída o explosión del globo en el sector de un jugador le hace perder una vida, convirtiendo cada intercambio en una lucha por la supervivencia hasta que uno de los dos se queda sin vidas.
 
-**Heave Ho  ([Steam](https://store.steampowered.com/app/905340/Heave_Ho/))**	
+**\- Característica diferencial 1:** Confrontación indirecta basada en control de parábolas: no eliminas al rival golpeándolo directamente, sino forzando ángulos, rebotes difíciles y errores en su zona para drenar sus vidas.  
+**\- Característica diferencial 2:** Escalado frenético de velocidad por toques: cada golpe consecutivo incrementa la velocidad del globo, reduciendo el tiempo de reacción y elevando exponencialmente la tensión en cada intercambio.  
+**\- Característica diferencial 3:** Plataformeo ágil asistido en arenas cerradas: las plataformas y paredes permiten realizar saltos, reposicionamientos e intercepciones aéreas para disputar el globo, convirtiendo el movimiento y el dominio del escenario en elementos clave de la competición.
 
-Combina una jugabilidad cooperativa basada en físicas con una comunicación caótica, donde un solo error o una acción a destiempo de cualquiera de los jugadores puede provocar un fallo inmediato.
-
-**Balloonatics** introduce físicas dinámicas para la trayectoria del globo y una sincronización estricta de intercepción aérea, cambiando el foco de cadenas físicas estáticas hacia un movimiento ágil y continuo, y la preservación de vidas a lo largo del escenario.
-
-![][image2]
-
-4. ## ***Género*** {#género}
-
-**Balloonatics** es un *party-platformer* cooperativo en 2D donde dos jugadores recorren arenas de pantalla fija, coordinando saltos precisos y tiempos de trayectoria para evitar que un frágil globo toque el suelo o reviente contra los peligros del entorno. 
-
-5. ## ***Inspiración*** {#inspiración}
-
-La principal inspiración para la jugabilidad de **Balloonatics** es el clásico juego popular **"Que no caiga el globo" (Keepy Uppy)**, combinado con el ritmo frenético de micro desafíos propio de juegos tipo **WarioWare**. El concepto central se basa en una tensión física inmediata e intuitiva: perseguir un objeto frágil de caída lenta usando posicionamiento, saltos y colisiones para mantenerlo en el aire a toda costa.
-
-Mientras que **"Que no caiga el globo"** funciona como un juego informal de la vida cotidiana delimitado por espacios domésticos, **Balloonatics** traslada esta tensión a arenas de plataformas en 2D con obstáculos ambientales, plataformas móviles y una economía estricta de vidas, exigiendo reflejos cooperativos precisos en lugar de un juego casual libre.
-
-6. ## ***Público objetivo*** {#público-objetivo}
-
-La investigación de público objetivo a partir de títulos comparables indica que **Balloonatics** apela principalmente a adolescentes y jóvenes adultos atraídos por juegos arcade cooperativos locales, party games y títulos de plataformas dinámicos centrados en reflejos y coordinación. Bajo la Taxonomía de Jugadores de Bartle, nuestro perfil demográfico se alinea con el arquetipo **'Socializer'** (y secundariamente **'Achiever'**): jugadores motivados por la interacción directa, la cooperación y la risa compartida ante situaciones caóticas, así como por la satisfacción de superar escenarios cada vez más exigentes manteniendo todas las vidas intactas
-
-* # **Interfaz de usuario y controles** {#interfaz-de-usuario-y-controles}
-
-  1. ## ***Descripción general*** {#descripción-general-1}
-
-Esta sección del documento detalla el UI y los controles.
-
-2. ## ***Interfaz de usuario*** {#interfaz-de-usuario}
-
-La interfaz del juego es simple, contando con un indicador de las vidas restantes y en la parte inferior un espacio que indicará la bonificación que tiene el jugador en cuestión
-
-El resto de interfaces son menús, contando con el menú principal, el de fin del juego y el de ajustes.
-
-3. ## ***Asignación de controles*** {#asignación-de-controles}
-
-La asignación de controles será la siguiente: 
-
-| Acción  | Tecla/Acción |
-| :---- | :---- |
-| **Jump** | W /  up arrow |
-| **Move backward**  | S / down arrow |
-| **Move Right** | D / right arrow |
-| **Move Left** | A / left arrow |
-| **Usar potenciador** | Right Shift / Left Shift |
-| **Pausar** | ESC |
-
-* # **Gameplay** {#gameplay}
-
-  1. ## ***Descripción general*** {#descripción-general-2}
-
-Esta parte del documento explica cómo funcionan las mecánicas, las dinámicas y el ciclo principal de juego. 
-
-2. ## ***Mecánica de velocidad*** {#mecánica-de-velocidad}
-
-**Multiplicador:**
-
-El multiplicador de velocidad del globo, aumenta con cada toque o golpe que reciba de un jugador. Su valor inicial es 1 y por cada golpe aumenta un 0.2, hasta un máximo de 10\.
-
-**Reinicio:**
-
-Cuando el globo cae al suelo, o explota, la velocidad del globo vuelve a su estado inicial.
-
-**Desafio:**
-
-Lo desafiante de esta mecánica se basa en que cuantos más toques lleve el globo más rápido se moverá, haciendo más difícil llegar a tiempo a su ubicación y reduciendo el tiempo de reacción del jugador.
-
-Los jugadores deberían preguntarse:  
-
-* ¿Debería anticiparme al globo?  
-* ¿Cómo puedo llegar más rápido?   
-* ¿Cual es el mejor momento para golpear el globo?
+2. **Especificaciones básicas**
 
    
-**¿Cómo ayuda a la experiencia deseada?**
 
-Aumentando la velocidad del globo de manera progresiva, mejora el ritmo y la diversión del juego, sin complicarlo demasiado de manera abrupta y permitiendo al jugador adaptarse de manera natural.
+| Aspecto | Descripción |
+| :---- | :---- |
+| **Título** | **Balloonatics** |
+| **Género** | **Plataformas competitivo** |
+| **Número de jugadores** | **2** |
+| **Público objetivo** | **jugadores casuales o competitivos**  |
+| **Clasificación PEGI** | **PEGI 7 (tiene elementos que no son aptos para niños menores de 5 años)** |
+| **Plataforma** | **PC** |
+| **Duración de la partida** | **10 \- 15 minutos** |
+| **Representación** | **2D** |
+| **Licencia** | **Apache 2.0** |
 
-Esta mecánica le da dificultad al juego evitando que sea monótono y relativamente fácil, convirtiéndolo en un juego más rápido y caótico.
+   
 
-3. ## ***Movimiento*** {#movimiento}
+3. **Jugabilidad**
 
-Cuando los jugadores pulsan una tecla:
+   1. ## Objetivo del juego {#objetivo-del-juego}
 
-* “W” / “ up arrow “ el jugador 1 / jugador 2 salta.  
-* “A” / “ left arrow “ el jugador 1 / jugador 2 se mueve a la izquierda.  
-* “D” / “ right arrow “ el jugador 1 / jugador 2 se mueve a la derecha.  
-* “S” / “ down arrow “ el jugador 1 / jugador 2 desciende o se agacha.
+El objetivo de cada jugador es mantener el globo en el aire golpeándolo hacia el terreno rival y obligar al contrincante a cometer un fallo para arrebatarle todas sus vidas. La partida termina cuando uno de los dos jugadores agota por completo su reserva de vidas al permitir que el globo caiga al suelo o explote en su sector. Gana el jugador que logre conservar al menos una vida intacta tras la eliminación del oponente. 
 
-All these movements (except jumping) are in relation to where the first person camera is looking. Jumping is in relation to where the ground is. 
+2. ## Controles {#controles}
 
-La velocidad de los jugadores es constante y solamente es modificada por algunos bonificadores durante la ronda y el estado de agachado**.**
+| Acción  | Jugador 1 | Jugador 2 |
+| :---- | :---- | :---- |
+| **Saltar** | W | ⬆ |
+| **Agacharse/descender rápido** | S | ⬇ |
+| **Moverse a la derecha** | D | ⮕ |
+| **Moverse a la izquierda** | A | ⬅ |
+| **Usar potenciador** | Shift Derecho | Shift Izquierdo |
+| **Pausar** | ESC | ESC |
 
-**Desafio:**
+# 
 
-El desafío relacionado a esta mecánica es optimizar el movimiento para poder seguir continuando la partida a pesar del aumento constante de velocidad del juego.
+   3. ## Mecánicas {#mecánicas}
 
-Los jugadores deberían preguntarse: 
+      1. ### Mecánicas principales {#mecánicas-principales}
 
-* ¿Debería subir por estas plataformas o ir por debajo de ellas?   
-* ¿Podré llegar a tocar el globo?  
-* ¿Me merece la pena reducir mi velocidad agachándome para llegar al destino?
+\- \*\*Aceleración progresiva por impacto:\*\* El multiplicador de velocidad del globo inicia en 1x y aumenta en \+0.2 con cada golpe de un jugador hasta un tope de 10x. Si el globo cae al suelo o explota, la velocidad se reinicia a su valor base. Esto reduce el tiempo de reacción en cada intercambio, forzando a los jugadores a anticipar rebotes y optimizar sus rutas.  
+\- \*\*Movimiento y control de plataforma:\*\* Los personajes cuentan con velocidad constante, salto preciso y la capacidad de agacharse para modular su desplazamiento o pasar bajo obstáculos. El movimiento está referenciado al plano de la arena 2D, permitiendo reaccionar rápidamente a la trayectoria del globo en las plataformas.  
+\- \*\*Coyote Timing:\*\* Margen de gracia invisible de 0.2 segundos que permite ejecutar un salto justo después de haber abandonado el borde de una plataforma sin tocarla. Funciona de manera independiente para cada jugador y garantiza que el control se sienta responsivo y justo ante velocidades altas.  
+![][image2]  
+\- \*\*Condición de victoria y derrota por rondas:\*\* La ronda termina cuando el globo toca el suelo o impacta contra un obstáculo letal. El jugador en cuyo sector caiga el globo (o el último en fallar la intercepción) pierde 1 vida. Gana la partida el jugador que logre vaciar las vidas de su contrincante manteniendo las suyas.
 
+2. ### Objetos y power-ups {#objetos-y-power-ups}
 
-**¿Cómo ayuda a la experiencia deseada?**
+| Título | Descripción | Duración | Obtención |
+| ----- | ----- | ----- | ----- |
+| **Globo Pesado** | Aumenta el peso del globo, haciendo que caiga más rápido hacia el campo rival. | 6 s (o hasta finalizar el punto) | Aleatoria en plataformas aéreas cada 20 s |
+| **Dash (Impulso)** | Otorga 3 cargas de aceleración lateral rápida para interceptar el globo en trayectorias limitadas. | 3 usos (hasta consumirse o 10 s) | Zona central del mapa tras 5 rebotes consecutivos |
+| **Calzado Antideslizante** | Vuelve el suelo resbaladizo para el adversario, mientras el portador conserva tracción normal. | 8 s | Plataformas inferiores cada 25 s |
 
-El movimiento debe hacer que el jugador sienta que tiene un control rápido y preciso sobre el personaje. Los controles deben ser sencillos y permitir reaccionar rápidamente a la posición del globo y a las plataformas.
+   
 
-La intención es que el movimiento sea fácil de aprender, pero que requiera práctica para aprovecharlo al máximo a medida que aumenta la velocidad del juego.
+   4. ## Físicas y dificultad {#físicas-y-dificultad}
 
-4. ## ***Coyote Timing*** {#coyote-timing}
+\- \*\*Gravedad y salto:\*\* Los jugadores cuentan con una gravedad constante y predecible que permite un control aéreo responsivo, complementado con \*Coyote Timing\* (margen de 0.2 s tras dejar una plataforma) para garantizar saltos justos al borde de los salientes. En contraste, el globo posee una flotabilidad inicial con baja gravedad y resistencia al aire simulada, lo que genera trayectorias en parábola lenta durante los primeros compases del punto.  
+\- \*\*Colisiones:\*\*   
+  \- \*Con plataformas:\* Los personajes y el globo colisionan de forma sólida con los límites del escenario y los salientes. Ciertas plataformas permiten atravesarse desde abajo saltando a través de ellas.  
+  \- \*Entre jugadores:\* Existe colisión elástica leve (o traspaso sin bloqueo para evitar atascos injustos), impidiendo que se empujen fuera del mapa directamente pero compitiendo físicamente por el espacio bajo el globo.  
+  \- \*Con el globo:\* El impacto del jugador transfiere un impulso vectorial directo cuya dirección depende del punto de contacto (centro, lateral o remate desde arriba). El contacto con el suelo o pinchos destruye el globo o finaliza la ronda.  
+\- \*\*Rebotes / fricción / empujes:\*\* El globo cuenta con un coeficiente de restitución alto contra paredes y techos, rebotando en ángulos geométricos que cambian según la velocidad acumulada. En el suelo, la fricción de los personajes es inmediata para frenadas secas, alterándose drásticamente cuando se activan efectos de deslizamiento.  
+\- \*\*Plataformas móviles o superficies especiales (hielo, rebote...):\*\* Se incorporan plataformas flotantes con movimiento cíclico (horizontal y vertical), camas elásticas/resortes en esquinas que proyectan el globo a gran velocidad, y zonas de baja fricción (hielo activado mediante el power-up \*Calzado Antideslizante\*) que reducen drásticamente la capacidad de frenado del rival.  
+\- \*\*Progresión de la dificultad:\*\* A medida que avanza la ronda, cada impacto exitoso sobre el globo eleva su multiplicador de velocidad en \+0.2x (desde 1.0x hasta un tope de 10.0x), comprimiendo los tiempos de reacción, acelerando las parábolas y volviendo los rebotes contra paredes mucho más caóticos y difíciles de interceptar.
 
-El jugador puede saltar durante un breve periodo de tiempo después de haber abandonado una plataforma, siempre que hayan pasado menos de **0,2 segundos**.
+5. ## Escenario {#escenario}
 
-Esta mecánica es conocida en los juegos de plataformas como **“Coyote Timing”**. Hace que el juego se perciba más justo, ya que puede ser difícil calcular exactamente cuándo el personaje está en el borde de una plataforma. Sin esta mecánica, el jugador puede intentar saltar cuando el personaje ya ha salido de la plataforma, haciendo que el salto falle y dando la sensación de que el juego no ha respondido correctamente.
+El escenario representa la cámara de pruebas principal del laboratorio del excéntrico Doctor Inflatus, una arena competitiva de pantalla fija con estética retrofuturista, repleta de maquinaria científica, bobinas de energía y tuberías de helio. En ella, Pip y Beto deben enfrentarse en un duelo de supervivencia donde el objetivo es mantener el globo en el aire y desviarlo hacia el sector rival para provocar sus errores y agotar sus vidas.				
 
-En **Balloonatics**, esta mecánica permite a ambos jugadores tener un pequeño margen de error al calcular cuándo han llegado al borde de una plataforma, algo especialmente importante cuando la velocidad del juego aumenta.
+4. **Narrativa**
 
-El Coyote Timing funcionará de forma independiente para cada jugador, tanto en partidas locales como online.
+   1. ## Historia {#historia}
 
-**Desafío:**
+En las profundidades del laboratorio subterráneo del excéntrico Doctor Inflatus, un experimento destinado a condensar energía pura se sale de control: la sustancia ultra volátil Helio-X queda atrapada dentro de un frágil globo de látex. Al activarse el protocolo de emergencia, las compuertas blindadas sellan la cámara de pruebas, dejando atrapados a dos empleados del complejo: Pip, el torpe y nervioso asistente científico, y Beto, el conserje todoterreno del laboratorio.
 
-No hay un desafío directamente relacionado con esta mecánica, ya que idealmente debe ser completamente invisible para el jugador y solo notarse cuando no está presente.
+El sistema de contención activa entonces un protocolo experimental de supervivencia: el globo debe permanecer en el aire y ser desviado hacia el sector opuesto antes de que toque el suelo o detone. Cada fallo compromete la seguridad del sector correspondiente, y las reservas de energía de sus ocupantes disminuyen con cada accidente. Sin posibilidad de escapar ni tiempo para buscar otra solución, Pip y Beto se ven obligados a competir por su supervivencia, utilizando las plataformas, las paredes y sus reflejos para mantener el globo fuera de su territorio y provocar errores en su rival.
 
-**¿Cómo ayuda a la experiencia deseada?**
+Lo que comienza como una prueba de reflejos se convierte en un duelo frenético donde cada golpe aumenta la velocidad del globo y cada rebote puede cambiar el rumbo de la partida. Solo quien consiga conservar al menos una reserva de energía podrá superar el protocolo, desbloquear la salida y escapar del laboratorio antes de que el experimento alcance su punto crítico.
 
-Esta mecánica ayuda a que el movimiento se sienta preciso y justo. El jugador debe poder saltar cuando percibe que todavía está a tiempo de hacerlo, evitando que pequeños errores de cálculo hagan que pierda una oportunidad de alcanzar el globo.
+2. ## Personajes {#personajes}
 
-Un ejemplo visual del Coyote timing en el videojuego Celeste:
+\#\#\#\# Pip (Jugador 1\)
 
-![Ejemplo del juego celeste sobre el Coyote Timing](images/image1.gif)
+![][image3]
 
-5. ## ***Power Ups*** {#power-ups}
+\- \*\*Edad / origen:\*\* 20 años, asistente de laboratorio júnior originario de Nueva Neumática.  
+\- \*\*Personalidad:\*\* Neurótico, calculador y propenso al pánico bajo presión, aunque sumamente metódico.  
+\- \*\*Motivación:\*\* Sobrevivir al colapso del experimento y demostrarle al Doctor Inflatus que merece un ascenso.  
+\- \*\*Trasfondo:\*\* Contratado recientemente como becario de investigación, Pip pasa sus días calibrando válvulas de presión y limpiando los tubos de ensayo del complejo subterráneo antes del accidente con el Helio-X.
 
-Los Power Ups es una mecánica introducida dentro del videojuego para dar una sensación de variabilidad y dinamismo al gameplay, haciendo que los comportamientos de los elementos cambien o adquieran nuevas acciones.
+\#\#\#\# Beto (Jugador 2\)
 
-* Globo Pesado:  El globo se vuelve más denso haciendo que caiga con mucha más velocidad durante cierto tiempo o hasta que se obtenga el punto.  
-* Dash: Se le da al jugador que obtenga este Power Up 3 dashes, movimientos de gran velocidad hacia los lados para alcanzar más fácilmente al globo.  
-* Calzado AntiDeslizante: El suelo se vuelve una zona deslizante para todos los jugadores excepto para aquel que obtenga este Power Up.
+![][image4]
 
-  6. ## ***Condición de Victoria / Derrota*** {#condición-de-victoria-/-derrota}
+\- \*\*Edad / origen:\*\* 40 años, jefe de mantenimiento e intendencia del complejo subterráneo.  
+\- \*\*Personalidad:\*\* Tranquilo, pragmático, sarcástico y con reflejos curtidos por años de resolver chapuzas al instante.  
+\- \*\*Motivación:\*\* Salir ileso de la cámara de pruebas para terminar su turno laboral y llegar a cenar a casa.  
+\- \*\*Trasfondo:\*\* Veterano de mantenimiento que conoce cada rincón y cableado del laboratorio. Se encontraba encerando el suelo de contención justo cuando la alarma de emergencia selló los accesos con el globo suelto.
 
-Una ronda finalizará cuando el globo toque el suelo, aquel jugador que haya tocado el globo 
+\#\#\#\# Doctor Inflatus (personaje no jugable / supervisor del experimento)
 
-* # **Dirección de Arte** {#dirección-de-arte}
+![][image5]
 
-  1. ## ***Descripción general*** {#descripción-general-3}
+Científico excéntrico y creador de la sustancia Helio-X. No participa físicamente en la arena, pero supervisa el duelo a través de los monitores blindados de la cámara de pruebas. Su voz interviene por megafonía anunciando la cuenta atrás, la aceleración de las partículas y la activación aleatoria de los potenciadores en el mapa. 
 
-La dirección de arte de **Balloonatics** propone gráficos 2D de estilo cartoon, inspirados en los juegos icónicos de Friv. El juego presenta colores vivos y un diseño de interfaz sencillo e intuitivo.
+5. # **Imagen y diseño visual** {#imagen-y-diseño-visual}
 
-* # **Musica y Sonido** {#musica-y-sonido}
+   1. ## Logotipo {#logotipo}
 
-  1. ## ***Descripción general*** {#descripción-general-4}
+![][image6]
 
-Esta sección del documento detalla los efectos de sonido y música que se usarán para **Balloonatics**.
+2. ## Estilo visual {#estilo-visual}
 
-2. ## ***Sonido*** {#sonido}
+El juego utiliza un estilo \*\*cartoon 2D de trazo grueso y colores saturados\*\* porque refuerza la identidad desenfadada y frenética de la jugabilidad competitiva. Este tratamiento gráfico estilizado y de alto contraste permite que los personajes, las plataformas y, especialmente, la trayectoria del globo destaquen con total claridad sobre el fondo del laboratorio durante los compases de máxima velocidad y aceleración por rebote.  
+![][image7]
+
+3. ## Uso de colores {#uso-de-colores}
+
+\- \*\*Fondo (\`\#1B1F3B\`):\*\* Azul oscuro y tonos pizarra metálicos desaturados que representan las paredes y maquinaria del laboratorio, garantizando que el primer plano resalte con nitidez.  
+\- \*\*Jugador 1 (\`\#E94560\`) / Jugador 2 (\`\#0F9BD7\`):\*\* colores complementarios para distinguir fácilmente a cada jugador. Pip utiliza tonos rojo / anaranjados en su indumentaria, mientras que Beto viste tonos azul/cian, permitiendo una rápida identificación visual en mitad del caos.  
+\- \*\*Objetos (\`\#F5C518\`):\*\* Amarillo brillante y dorado de alta luminiscencia para el globo energético, indicadores de alerta y cajas de \*power-ups\*, asegurando que la atención del jugador se dirija de inmediato a los elementos interactivos críticos.  
+![][image8]![][image9]![][image10]![][image11]
+
+4. ## Aspectos técnicos: cámara y representación {#aspectos-técnicos:-cámara-y-representación}
+
+\- \*\*Representación:\*\* 2D, vista lateral  
+\- \*\*Cámara:\*\* Fija mostrando todo el escenario en pantalla única  
+\- \*\*Resolución base:\*\* 1920 × 1080 píxeles
+
+5. ## Inspiración artística y cultural {#inspiración-artística-y-cultural}
+
+\- \*\*TowerFall Ascension:\*\* tomamos la legibilidad en arenas cerradas de pantalla fija, el ritmo frenético de los saltos y la claridad espacial del plataformero 2D \[1\].  
+![][image12]  
+\- \*\*Laboratorio de Dexter / Animación slapstick de Cartoon Network (serie / estilo artístico):\*\* estética retrofuturista de laboratorio caricaturesco, con maquinaria exagerada, colores saturados, líneas de contorno marcadas y comedia física basada en el caos \[2\].  
+![][image13]  
+\- \*\*Juego popular "Que no caiga el globo" / Keepy Uppy (referencia cultural):\*\* el reto intuitivo universal de perseguir y golpear un objeto ligero para evitar que toque el suelo, reinterpretado aquí como un duelo competitivo dentro de un entorno científico inestable \[3\].  
+![][image14]
+
+6. ## Bocetos de personajes y pantallas {#bocetos-de-personajes-y-pantallas}
+
+Los bocetos de los personajes se encuentran en el apartado \[4.2\](\#42-personajes) y los de las pantallas en el apartado \[7.1\](\#71-interfaz-de-usuario-ui).
+
+6. # **Sonido** {#sonido}
+
+   1. ## Banda sonora  {#banda-sonora}
+
+| Pista | Escena | Estilo/ambiente | Fuente/licencia |
+| ----- | ----- | ----- | ----- |
+| Tema del Laboratorio  | Menú principal  | Jazz / funk retro cómico con sintetizadores ligeros, tempo medio (110 BPM), distendido y alegre.  | CC0 (Dominio público)  |
+| Helio Frenético  | Partida  | Electro-swing acelerado con percusión enérgica (140 BPM), aumentando sutilmente de pitch según sube la velocidad del globo.  | CC-BY 4.0  |
+| Fin del Experimento  | Victoria / derrota  | Jingle breve de fanfarria cómica para el vencedor y sonido de cortina de trombón caricaturesca para la derrota.  | CC0 (Dominio público)  |
+
+      
+
+   2. ## Efectos de sonido {#efectos-de-sonido}
+
+      
+
+| Efecto | Se reproduce al.. |
+| ----- | ----- |
+| Salto | Pulsar la tecla de salto |
+| Golpe al globo | Colisionar con el globo |
+| Recoger objeto  | Al entrar en contacto con una caja de *power-up* o activar una bonificación (campanilla electrónica).  |
+| Botones de la interfaz  | Al pasar el ratón (clic sutil) y al hacer clic (pop de burbuja).  |
+| Cuenta atrás  | En los 3 segundos previos al inicio de la ronda (bips electrónicos seguidos de bocina de laboratorio).  |
+| Explosión del globo  | Cuando el globo toca el suelo o la zona de fallo (*pop* seco con eco de cristales rotos).  |
+| Activación de Dash  | Al consumir una carga de impulso lateral (*whoosh* rápido de aire comprimido).  |
+
+      
+
+7. # **Interfaz y diagrama de flujo** {#interfaz-y-diagrama-de-flujo}
+
+   1. ## Pantallas {#pantallas}
+
+      1. ### Arte principal \+ Logo {#arte-principal-+-logo}
+
+![][image6]
+
+2. ### Menú principal {#menú-principal}
+
+*![][image15]*
+
+3. ### Seleccionar Mapa {#seleccionar-mapa}
+
+![][image16]
+
+4. ### Selector local/online {#selector-local/online}
+
+![][image17]
+
+5. ### Gameplay {#gameplay}
+
+![][image18]
+
+6. ### Resultado {#resultado}
+
+![][image19]
+
+7. ### Pausa {#pausa}
+
+   ![][image20]
+
+   8. ### Opciones {#opciones}
+
+*![][image21]*
+
+*![][image22]*
+
+9. ### Salir {#salir}
+
+![][image23]
+
+10. ### Créditos {#créditos}
+
+![][image24]
+
+2. ## Diagrama de flujo {#diagrama-de-flujo}
+
+![][image25]
+
+8. # **Comunicación y marketing** {#comunicación-y-marketing}
+
+\- \*\*Público y mensaje clave:\*\* Jóvenes y adultos jóvenes aficionados a los \*party games\* competitivos locales y de navegador. El mensaje clave destaca la tensión inmediata, el pique entre rivales y la diversión caótica: \*un reto simple de entender, frenético de jugar y donde cada toque al globo puede sellar tu derrota\*.  
+\- \*\*Canales:\*\* Redes sociales dinámicas, comunidades de desarrollo indie en Discord / Reddit, y plataformas de distribución web indie como \[itch.io\](https\://itch.io), \[Newgrounds\](https\://www\.newgrounds.com) y \[Game Jolt\](https\://gamejolt.com).  
+\- \*\*Calendario:\*\*   
+  \- \*Teaser:\* Octubre 2026 (presentación del concepto visual, personajes y logo en redes).  
+  \- \*Devblog semanal:\* Noviembre 2026 (avances de físicas, arquitectura cliente-servidor y pruebas multijugador).  
+  \- \*Lanzamiento / Release:\* Diciembre 2026 (publicación de la versión multijugador jugable en la web).  
+\- \*\*Material:\*\* Tráiler dinámico de 30 segundos centrado en momentos tensos de rebote rápido, capturas de pantalla de la arena del laboratorio, GIFs animados de jugabilidad en bucle destacando el \*Coyote Timing\* y los \*power-ups\*, y un \*press kit\* digital descargable con logotipo, recursos gráficos y sinopsis.  
+\- \*\*Eslogan:\*\* «¡Rebota, esquiva y que no caiga de tu lado\!»
+
+9. # **Referencias** {#referencias}
+
+\[1\] Thorson, M. (2013). \*TowerFall Ascension\*. Matt Makes Games. https\://www\.towerfallgame.com
+
+\[2\] Tartakovsky, G. (1996). \*Dexter's Laboratory\* \[Serie de televisión\]. Cartoon Network Studios / Hanna-Barbera.
+
+\[3\] Bartle, R. (1996). Hearts, clubs, diamonds, spades: Players who suit MUDs. \*Journal of MUD Research\*, 1(1), 19\.
+
+\[4\] Schell, J. (2019). \*The Art of Game Design: A Book of Lenses\* (3.ª ed.). CRC Press.
 
