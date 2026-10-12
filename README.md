@@ -245,7 +245,7 @@ crítico.
 
 #### Pip (jugador 1)
 
-[Pip](imagenes-GDD/pip.png)
+![Pip](imagenes-GDD/pip.png)
 
 
 Figura 2. Jugador 1 (Pip)
@@ -262,7 +262,7 @@ Figura 2. Jugador 1 (Pip)
 
 #### Beto (jugador 2)
 
-[beto](imagenes-GDD/beto.png)
+![beto](imagenes-GDD/beto.png)
 
 
 Figura 3. Jugador 2 (Beto)
@@ -280,7 +280,7 @@ Figura 3. Jugador 2 (Beto)
 
 #### Doctor Inflatus (personaje no jugable)
 
-[Doctor Inflatus](imagenes-GDD/doctor_inflatus.png)
+![Doctor Inflatus](imagenes-GDD/doctor_inflatus.png)
 
 
 Figura 4. Doctor Inflatus
@@ -295,7 +295,7 @@ la activación aleatoria de los potenciadores en el mapa.
 
 ### 5.1. Logotipo
 
-[Logo Balloonatics](imagenes-GDD/logotipo.png)
+![Logo Balloonatics](imagenes-GDD/logotipo.png)
 
 
 Figura 5. Logotipo Balloonatics
@@ -309,7 +309,7 @@ contraste permite que los personajes, las plataformas y, especialmente,
 la trayectoria del globo destaquen con claridad sobre el fondo del
 laboratorio durante los momentos de máxima velocidad.
 
-[Mockup](imagenes-GDD/mockup.jpg) 
+![Mockup](imagenes-GDD/mockup.jpg) 
 
 
 Figura 6. Mockup
@@ -325,10 +325,10 @@ Figura 6. Mockup
 - **Objetos (`#F5C518`):** Amarillo brillante y dorado para el globo
   energético, los indicadores de alerta y las cajas de *power-ups*.
 
-[udc1](imagenes-GDD/uso_de_colores_1.png)
-[udc2](imagenes-GDD/uso_de_colores_2.png)
-[udc3](imagenes-GDD/uso_de_colores_3.png)
-[udc4](imagenes-GDD/uso_de_colores_4.png)
+![udc1](imagenes-GDD/uso_de_colores_1.png)
+![udc2](imagenes-GDD/uso_de_colores_2.png)
+![udc3](imagenes-GDD/uso_de_colores_3.png)
+![udc4](imagenes-GDD/uso_de_colores_4.png)
 
 
 Figura 7. Paleta de colores a usar
@@ -345,7 +345,7 @@ Figura 7. Paleta de colores a usar
   arenas cerradas de pantalla fija, el ritmo frenético de los saltos y
   la claridad espacial del plataformero 2D \[1\].
 
-[TowerFall Ascension](imagenes-GDD/inspiración_1.gif)
+![TowerFall Ascension](imagenes-GDD/inspiración_1.gif)
 
 
 Figura 8. TowerFall Ascension
@@ -355,7 +355,7 @@ Figura 8. TowerFall Ascension
   caricaturesco, con maquinaria exagerada, colores saturados, contornos
   marcados y comedia física basada en el caos \[2\].
 
-[Laboratorio de Dexter](imagenes-GDD/inspiración_2.gif)
+![Laboratorio de Dexter](imagenes-GDD/inspiración_2.gif)
 
 
 Figura 9. Laboratorio de Dexter
@@ -365,7 +365,7 @@ Figura 9. Laboratorio de Dexter
   reinterpretado como un duelo competitivo dentro de un entorno
   científico inestable \[3\].
 
-[Keepy Uppy](imagenes-GDD/inspiración_3.png)
+![Keepy Uppy](imagenes-GDD/inspiración_3.png)
 
 
 Figura 10. Keepy Uppy
@@ -404,83 +404,83 @@ Los bocetos de los personajes se añadirán en el apartado
 
 #### 7.1.1. Arte principal y logo
 
-[logo juego](imagenes-GDD/logotipo.png)
+![logo juego](imagenes-GDD/logotipo.png)
 
 
 Figura 11. Pantalla con el logotipo del juego
 
 #### 7.1.2. Menú principal
 
-[Menú principal](imagenes-GDD/menú_principal.png)
+![Menú principal](imagenes-GDD/menú_principal.png)
 
 
 Figura 12. Pantalla de menú principal 
 
 #### 7.1.3. Selección de mapa
 
-[Selección de mapa](imagenes-GDD/selección_de_nivel.png)
+![Selección de mapa](imagenes-GDD/selección_de_nivel.png)
 
 
 Figura 13. Pantalla de selector de mapas
 
 #### 7.1.4. Selector local y online
 
-[Selector local y online](imagenes-GDD/Selector_de_partida.png)
+![Selector local y online](imagenes-GDD/Selector_de_partida.png)
 
 
 Figura 14. Pantalla de selección de modo local/online
 
 #### 7.1.5. Gameplay
 
-[Gameplay](imagenes-GDD/gameplay.png)
+![Gameplay](imagenes-GDD/gameplay.png)
 
 
 Figura 15. Pantalla de gameplay
 
 #### 7.1.6. Resultado
 
-[Resultado](imagenes-GDD/resultado.png)
+![Resultado](imagenes-GDD/resultado.png)
 
 
 Figura 16. Pantalla de resultado
 
 #### 7.1.7. Pausa
 
-[Pausa](imagenes-GDD/pausa.png)
+![Pausa](imagenes-GDD/pausa.png)
 
 
 Figura 17. Pantalla de pausa
 
 #### 7.1.8. Opciones
 
-[Opciones](imagenes-GDD/opciones.png)
+![Opciones](imagenes-GDD/opciones.png)
 
 
 Figura 18. Pantalla de opciones
 
 
-[Audio y video](imagenes-GDD/audio_video.png)
+![Audio y video](imagenes-GDD/audio_video.png)
 
 
 Figura 19. Pantalla de opciones
 
 #### 7.1.9. Salir
 
-[Salida](imagenes-GDD/salida.png)
+![Salida](imagenes-GDD/salida.png)
 
 
 Figura 20. Pantalla de salida
 
 #### 7.1.10. Créditos
 
-[Créditos](imagenes-GDD/créditos.png)
+![Créditos](imagenes-GDD/créditos.png)
 
 
 Figura 21. Pantalla de créditos
 
 ### 7.2. Diagrama de flujo
 
-[Diagrama de flujo](imagenes-GDD/diagrama_de_flujo.jpg)
+![Diagrama de flujo](imagenes-GDD/diagrama_de_flujo.jpg)
 
 
 Figura 22. Diagrama de flujo de Balloonatics
