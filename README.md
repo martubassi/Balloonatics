@@ -512,7 +512,7 @@ Figura 22. Diagrama de flujo de Balloonatics
 ## 9. Referencias
 
 1.  Thorson, M. (2013). *TowerFall Ascension*. Matt Makes Games.
-    \[https://www.towerfallgame.com\].
+    [https://www.towerfallgame.com](https://www.towerfallgame.com).
 2.  Tartakovsky, G. (1996). *Dexter's Laboratory* \[serie de
     televisión\]. Cartoon Network Studios / Hanna-Barbera.
 3.  Referencia cultural: juego popular «Que no caiga el globo» / *Keepy
