@@ -418,7 +418,7 @@ Figura 12. Pantalla de menú principal
 
 #### 7.1.3. Selección de mapa
 
-![Selección de mapa](imagenes-GDD/selección_de_nivel.png)
+![Selección de mapa](imagenes-GDD/Selección_de_nivel.png)
 
 
 Figura 13. Pantalla de selector de mapas
