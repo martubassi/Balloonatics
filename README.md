@@ -157,7 +157,7 @@ su oponente mientras conserve al menos una.
   vida. Gana la partida quien agote todas las vidas del contrincante
   conservando las propias.
 
-[Coyote Timing](imagenes-GDD/coyote_timing.gif)
+![Coyote Timing](imagenes-GDD/coyote_timing.gif)
 
 
 Figura 1. Coyote Timing en Celeste
