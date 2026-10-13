@@ -20,6 +20,10 @@ quien consiga agotar todas las vidas de su oponente.
 | **Mateo González Falquina**     | [<m.gonzalezfa.2024@alumnos.urjc.es>](mailto:m.gonzalezfa.2024@alumnos.urjc.es) | [@Kirby7805](https://github.com/Kirby7805)   |
 | **Arturo de María García Díaz** | [<am.garciad.2024@alumnos.urjc.es>](mailto:am.garciad.2024@alumnos.urjc.es)     | [@ElPapiVikG](https://github.com/ElPapiVikG) |
 
+**Repositorio:** `https://github.com/martubassi/Ballonatics`
+
+**Licencia:** [Apache 2.0](LICENSE)
+
 # Game Design Document (GDD)
 
 ## Índice
