@@ -1,4 +1,4 @@
-import { MoveCommand, JumpCommand, DropCommand } from './Commands.js';
+import { MoveCommand, JumpCommand, DropCommand, UsePowerUpCommand } from './Commands.js';
 
 export class CommandProcessor {
   constructor() {
@@ -33,6 +33,7 @@ export class CommandProcessor {
       case 'MOVE': return new MoveCommand(player, data.direction);
       case 'JUMP': return new JumpCommand(player);
       case 'DROP': return new DropCommand(player, data.active);
+      case 'USE_POWERUP': return new UsePowerUpCommand(player);
       default:
         console.warn('Comando desconocido:', data.type);
         return null;

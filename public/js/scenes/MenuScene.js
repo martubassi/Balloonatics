@@ -1,4 +1,4 @@
-import { GAME_WIDTH } from '../config.js';
+import { GAME_WIDTH, POWERUP_KEYS, KEY_LABEL } from '../config.js';
 import { createButton } from '../ui.js';
 
 export class MenuScene extends Phaser.Scene {
@@ -14,7 +14,7 @@ export class MenuScene extends Phaser.Scene {
     createButton(this, GAME_WIDTH / 2, 720, 'Online (próximamente)', null, false);
 
     this.add.text(GAME_WIDTH / 2, 940,
-      'J1: W A S D        J2: Flechas        ESC: pausa', {
+      `J1: WASD + ${KEY_LABEL[POWERUP_KEYS.p1]}      J2: Flechas + ${KEY_LABEL[POWERUP_KEYS.p2]}      ESC: pausa`, {
         fontFamily: 'Arial', fontSize: '36px', color: '#9aa0c8'
       }).setOrigin(0.5);
   }

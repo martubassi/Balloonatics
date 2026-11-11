@@ -22,6 +22,13 @@ export class JumpCommand extends Command {
   getPlayer() { return this.player; }
 }
 
+export class UsePowerUpCommand extends Command {
+  constructor(player) { super(); this.player = player; }
+  execute() { this.player.scene.powerUps.use(this.player); }
+  serialize() { return { type: 'USE_POWERUP', playerId: this.player.id }; }
+  getPlayer() { return this.player; }
+}
+
 export class DropCommand extends Command {
   constructor(player, active) { // active: true mientras se mantiene "abajo"
     super();
