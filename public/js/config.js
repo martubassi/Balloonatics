@@ -6,12 +6,7 @@ export const WORLD_GRAVITY = 2200;
 export const FLOOR_TOP = 1020;
 export const FLOOR_HEIGHT = 60;
 export const PLATFORM_HEIGHT = 30;
-// [centroX, yTop, ancho, tipo] - 'low' = plataformas inferiores, 'air' = aéreas
-export const PLATFORMS = [
-  [420, 800, 360, 'low'], [1500, 800, 360, 'low'],
-  [960, 660, 320, 'air'],
-  [180, 580, 280, 'air'], [1740, 580, 280, 'air']
-];
+// Las plataformas de cada mapa están en maps.js
 
 export const COLORS = {
   background: 0x1B1F3B,
@@ -28,7 +23,7 @@ export const COUNTDOWN_SECONDS = 3;
 // Potenciadores (tiempos en milisegundos)
 export const POWERUP = {
   heavy: { spawnEvery: 20000, duration: 6000, gravityFactor: 4, drift: 250 },
-  dash: { hitsToSpawn: 5, spawnY: 480, charges: 3, duration: 10000, speed: 1500, burst: 150 },
+  dash: { hitsToSpawn: 5, charges: 3, duration: 10000, speed: 1500, burst: 150 },
   slip: { spawnEvery: 25000, duration: 8000, grip: 0.035 }
 };
 

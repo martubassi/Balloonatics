@@ -1,7 +1,8 @@
 import {
   GAME_WIDTH, GAME_HEIGHT, FLOOR_TOP, FLOOR_HEIGHT, PLATFORM_HEIGHT,
-  PLATFORMS, COLORS, COUNTDOWN_SECONDS, POWERUP_KEYS
+  COLORS, COUNTDOWN_SECONDS, POWERUP_KEYS
 } from '../config.js';
+import { getMap } from '../maps.js';
 import { Player } from '../entities/Player.js';
 import { Balloon } from '../entities/Balloon.js';
 import { PowerUpManager } from '../systems/PowerUpManager.js';
@@ -14,13 +15,17 @@ export class GameScene extends Phaser.Scene {
     this.commandProcessor = new CommandProcessor();
   }
 
+  init(data) {
+    this.map = getMap(data && data.mapId); // mapa elegido en la votación
+  }
+
   create() {
     this.roundActive = false;
     this.createArena();
     this.createPlayers();
     this.balloon = new Balloon(this, GAME_WIDTH / 2, 260);
     this.createColliders();
-    this.powerUps = new PowerUpManager(this, [this.player1, this.player2], this.balloon);
+    this.powerUps = new PowerUpManager(this, [this.player1, this.player2], this.balloon, this.map);
     this.createInput();
     this.createHud();
 
@@ -33,6 +38,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   createArena() {
+    this.cameras.main.setBackgroundColor(this.map.background);
     // Sectores: izquierda = Pip, derecha = Beto
     this.add.rectangle(GAME_WIDTH / 4, GAME_HEIGHT / 2, GAME_WIDTH / 2, GAME_HEIGHT, COLORS.pip, 0.05);
     this.add.rectangle(GAME_WIDTH * 3 / 4, GAME_HEIGHT / 2, GAME_WIDTH / 2, GAME_HEIGHT, COLORS.beto, 0.05);
@@ -40,12 +46,12 @@ export class GameScene extends Phaser.Scene {
 
     // El suelo es la zona de fallo: los jugadores lo pisan, el globo lo atraviesa y puntúa
     this.floor = this.physics.add.staticGroup();
-    this.floor.create(GAME_WIDTH / 2, FLOOR_TOP + FLOOR_HEIGHT / 2, 'platform')
+    this.floor.create(GAME_WIDTH / 2, FLOOR_TOP + FLOOR_HEIGHT / 2, `platform_${this.map.id}`)
       .setDisplaySize(GAME_WIDTH, FLOOR_HEIGHT).refreshBody();
 
     this.platforms = this.physics.add.staticGroup();
-    PLATFORMS.forEach(([x, top, w]) => {
-      this.platforms.create(x, top + PLATFORM_HEIGHT / 2, 'platform')
+    this.map.platforms.forEach(([x, top, w]) => {
+      this.platforms.create(x, top + PLATFORM_HEIGHT / 2, `platform_${this.map.id}`)
         .setDisplaySize(w, PLATFORM_HEIGHT).refreshBody();
     });
   }

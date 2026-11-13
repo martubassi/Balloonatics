@@ -10,7 +10,7 @@ export class MenuScene extends Phaser.Scene {
       stroke: '#000000', strokeThickness: 12
     }).setOrigin(0.5);
 
-    createButton(this, GAME_WIDTH / 2, 560, 'Jugar (local)', () => this.scene.start('GameScene'));
+    createButton(this, GAME_WIDTH / 2, 560, 'Jugar (local)', () => this.scene.start('MapVoteScene'));
     createButton(this, GAME_WIDTH / 2, 720, 'Online (próximamente)', null, false);
 
     this.add.text(GAME_WIDTH / 2, 940,

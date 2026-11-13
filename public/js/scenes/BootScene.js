@@ -1,4 +1,5 @@
 import { COLORS } from '../config.js';
+import { MAPS } from '../maps.js';
 
 // Genera texturas placeholder (sin assets) con la paleta del GDD
 export class BootScene extends Phaser.Scene {
@@ -16,6 +17,7 @@ export class BootScene extends Phaser.Scene {
     box('pip', 64, 96, COLORS.pip, 14);
     box('beto', 64, 96, COLORS.beto, 14);
     box('platform', 64, 30, COLORS.platform, 6);
+    MAPS.forEach((m) => box(`platform_${m.id}`, 64, 30, m.platformColor, 6)); // plataformas de cada mapa
 
     g.clear();
     g.fillStyle(COLORS.balloon, 1).fillCircle(40, 40, 37);

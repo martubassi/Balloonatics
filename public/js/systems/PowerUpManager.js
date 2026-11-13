@@ -1,10 +1,11 @@
-import { POWERUP, PLATFORMS, GAME_WIDTH } from '../config.js';
+import { POWERUP } from '../config.js';
 
 // Cajas de potenciador: aparición, recogida y activación.
 // Globo pesado (plataformas aéreas, cada 20 s), Dash (centro, cada 5 golpes seguidos)
 // y Calzado antideslizante (plataformas inferiores, cada 25 s).
 export class PowerUpManager {
-  constructor(scene, players, balloon) {
+  constructor(scene, players, balloon, map) {
+    this.map = map;
     this.scene = scene;
     this.players = players;
     this.balloon = balloon;
@@ -32,12 +33,12 @@ export class PowerUpManager {
 
   onBalloonHit(hits) {
     if (hits % POWERUP.dash.hitsToSpawn === 0) {
-      this.spawn('dash', GAME_WIDTH / 2, POWERUP.dash.spawnY);
+      this.spawn('dash', this.map.dashSpawn.x, this.map.dashSpawn.y);
     }
   }
 
   spawnOnPlatform(kind, type) {
-    const options = PLATFORMS.filter((p) => p[3] === type);
+    const options = this.map.platforms.filter((p) => p[3] === type);
     const [cx, top, w] = Phaser.Utils.Array.GetRandom(options);
     const x = Phaser.Math.Between(cx - w / 2 + 40, cx + w / 2 - 40);
     this.spawn(kind, x, top - 40);
