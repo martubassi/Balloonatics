@@ -1,13 +1,13 @@
 import {
   GAME_WIDTH, GAME_HEIGHT, FLOOR_TOP, FLOOR_HEIGHT, PLATFORM_HEIGHT,
-  COLORS, COUNTDOWN_SECONDS, POWERUP_KEYS
+  COLORS, COUNTDOWN_SECONDS, POWERUP_KEYS, CENTER_WALL_WIDTH, SERVE_Y
 } from '../config.js';
 import { getMap } from '../maps.js';
 import { Player } from '../entities/Player.js';
 import { Balloon } from '../entities/Balloon.js';
 import { PowerUpManager } from '../systems/PowerUpManager.js';
 import { CommandProcessor } from '../commands/CommandProcessor.js';
-import { MoveCommand, JumpCommand, DropCommand, UsePowerUpCommand } from '../commands/Commands.js';
+import { MoveCommand, JumpCommand, JumpReleaseCommand, DropCommand, UsePowerUpCommand } from '../commands/Commands.js';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
@@ -34,6 +34,8 @@ export class GameScene extends Phaser.Scene {
       this.scene.launch('PauseScene', { escenaOrigen: 'GameScene' });
     });
 
+    // Sorteo del primer saque
+    this.server = Phaser.Utils.Array.GetRandom([this.player1, this.player2]);
     this.startRound();
   }
 
@@ -43,6 +45,10 @@ export class GameScene extends Phaser.Scene {
     this.add.rectangle(GAME_WIDTH / 4, GAME_HEIGHT / 2, GAME_WIDTH / 2, GAME_HEIGHT, COLORS.pip, 0.05);
     this.add.rectangle(GAME_WIDTH * 3 / 4, GAME_HEIGHT / 2, GAME_WIDTH / 2, GAME_HEIGHT, COLORS.beto, 0.05);
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 4, GAME_HEIGHT, 0xffffff, 0.1);
+
+    // Muro central invisible (cuerpo estático): separa los dos campos
+    this.centerWall = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, CENTER_WALL_WIDTH, GAME_HEIGHT);
+    this.physics.add.existing(this.centerWall, true);
 
     // El suelo es la zona de fallo: los jugadores lo pisan, el globo lo atraviesa y puntúa
     this.floor = this.physics.add.staticGroup();
@@ -61,6 +67,9 @@ export class GameScene extends Phaser.Scene {
     this.player1 = new Player(this, { id: 'p1', name: 'Pip', texture: 'pip', x: 480, y, rivalDirection: 1 });
     this.player2 = new Player(this, { id: 'p2', name: 'Beto', texture: 'beto', x: 1440, y, rivalDirection: -1 });
 
+    this.player1.rival = this.player2; // el globo apunta lejos del rival
+    this.player2.rival = this.player1;
+
     this.commandProcessor.players.clear();
     [this.player1, this.player2].forEach((p) => this.commandProcessor.players.set(p.id, p));
   }
@@ -69,7 +78,12 @@ export class GameScene extends Phaser.Scene {
     const players = [this.player1, this.player2];
     this.physics.add.collider(players, this.floor);
     this.physics.add.collider(players, this.platforms, null, this.canLand, this);
-    this.physics.add.collider(this.balloon, this.platforms);
+    // El globo no colisiona con las plataformas desde que se golpea hasta que cruza la mitad del mapa
+    this.physics.add.collider(this.balloon, this.platforms, null, (balloon) => !balloon.passThrough, this);
+    // Los jugadores no pueden cruzar el centro
+    this.physics.add.collider(players, this.centerWall);
+    // El globo solo choca con el muro una vez ha cruzado de campo (para que no rebote de vuelta sin querer)
+    this.physics.add.collider(this.balloon, this.centerWall, null, (balloon) => balloon.crossedMid, this);
     // Overlap (no collider): el impulso al globo lo calculamos nosotros en Balloon.hitBy
     this.physics.add.overlap(players, this.balloon, (player, balloon) => {
       if (this.roundActive && balloon.hitBy(player, this.time.now)) {
@@ -80,7 +94,7 @@ export class GameScene extends Phaser.Scene {
 
   // Plataformas de un solo sentido: se aterriza desde arriba y se atraviesan subiendo o pulsando "abajo"
   canLand(player, platform) {
-    return !player.wantsDrop
+    return this.time.now >= player.dropThroughUntil
       && player.body.velocity.y >= 0
       && player.body.prev.y + player.body.height <= platform.body.top + 1;
   }
@@ -109,6 +123,7 @@ export class GameScene extends Phaser.Scene {
     const small = { fontFamily: 'Arial', fontSize: '34px', fontStyle: 'bold', color: '#ffffff', stroke: '#000000', strokeThickness: 4 };
     this.powerText1 = this.add.text(40, 100, '', small);
     this.powerText2 = this.add.text(GAME_WIDTH - 40, 100, '', { ...small, align: 'right' }).setOrigin(1, 0);
+    this.serveText = this.add.text(GAME_WIDTH / 2, 150, '', { ...small, fontSize: '56px' }).setOrigin(0.5);
     this.centerText = this.add.text(GAME_WIDTH / 2, 380, '', {
       fontFamily: 'Arial', fontSize: '200px', fontStyle: 'bold', color: '#ffffff',
       stroke: '#000000', strokeThickness: 12
@@ -116,7 +131,11 @@ export class GameScene extends Phaser.Scene {
   }
 
   startRound() {
-    this.balloon.reset(GAME_WIDTH / 2, 260);
+    // El globo espera en el centro y saldrá hacia el campo rival del jugador que saca
+    this.balloon.reset(GAME_WIDTH / 2, SERVE_Y);
+    this.balloon.holdFor(this.server);
+    this.serveText.setText(`SAQUE: ${this.server.displayName.toUpperCase()}`)
+      .setColor(this.server === this.player1 ? '#E94560' : '#0F9BD7');
     this.player1.respawn();
     this.player2.respawn();
 
@@ -131,7 +150,8 @@ export class GameScene extends Phaser.Scene {
           this.centerText.setText(String(n));
         } else {
           this.centerText.setText('');
-          this.balloon.release();
+          this.serveText.setText('');
+          this.balloon.serve();
           this.roundActive = true;
         }
       }
@@ -148,6 +168,7 @@ export class GameScene extends Phaser.Scene {
     const loser = this.balloon.x < GAME_WIDTH / 2 ? this.player1 : this.player2;
     const winner = loser === this.player1 ? this.player2 : this.player1;
     loser.lives -= 1;
+    this.server = winner; // saca quien ganó el punto
 
     if (loser.lives <= 0) {
       this.time.delayedCall(1000, () => {
@@ -177,6 +198,9 @@ export class GameScene extends Phaser.Scene {
       if (Phaser.Input.Keyboard.JustDown(b.keys.up)) {
         this.commandProcessor.process(new JumpCommand(b.player));
       }
+      if (Phaser.Input.Keyboard.JustUp(b.keys.up)) {
+        this.commandProcessor.process(new JumpReleaseCommand(b.player));
+      }
     });
   }
 
@@ -196,6 +220,7 @@ export class GameScene extends Phaser.Scene {
     this.player1.tick(time, delta);
     this.player2.tick(time, delta);
     if (this.roundActive) this.powerUps.update(delta);
+    this.balloon.tickFlight();
 
     if (this.roundActive && this.balloon.body.bottom >= FLOOR_TOP) this.onBalloonFell();
 

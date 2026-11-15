@@ -22,6 +22,13 @@ export class JumpCommand extends Command {
   getPlayer() { return this.player; }
 }
 
+export class JumpReleaseCommand extends Command { // se suelta la tecla de salto: salto corto
+  constructor(player) { super(); this.player = player; }
+  execute() { this.player.releaseJump(); }
+  serialize() { return { type: 'JUMP_RELEASE', playerId: this.player.id }; }
+  getPlayer() { return this.player; }
+}
+
 export class UsePowerUpCommand extends Command {
   constructor(player) { super(); this.player = player; }
   execute() { this.player.scene.powerUps.use(this.player); }

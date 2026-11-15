@@ -137,7 +137,7 @@ su oponente mientras conserve al menos una.
 | **Agacharse/descender rápido** | S             | ⬇               |
 | **Moverse a la derecha**       | D             | ⮕               |
 | **Moverse a la izquierda**     | A             | ⬅               |
-| **Usar potenciador**           | Shift derecho | Shift izquierdo |
+| **Usar potenciador**           | Shift izquierdo | Shift derecho |
 | **Pausar**                     | ESC           | ESC             |
 
 ### 3.3. Mecánicas

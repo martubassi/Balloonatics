@@ -1,36 +1,39 @@
 // Mapas: solo datos. Cada plataforma es [centroX, yTop, ancho, tipo]:
 //   'low' = alcanzable desde el suelo (aquí aparece el Calzado antideslizante)
 //   'air' = aérea (aquí aparece el Globo pesado)
-// Todos son simétricos y recorribles saltando (salto máximo ≈ 275 px).
+// Todos son simétricos y recorribles saltando (salto máximo ≈ 275 px; cada escalón sube ≤ 230 px).
+// Reglas: el centro (960 ± 160) queda libre y ninguna plataforma se acerca a menos de 150 px de las paredes.
+// La caja de Dash aparece en el centro libre, a la altura de un salto desde el suelo.
 export const MAPS = [
   {
     id: 'clasico', name: 'Clásico',
     background: 0x1B1F3B, platformColor: 0x4A5080,
-    dashSpawn: { x: 960, y: 480 },
+    dashSpawn: { x: 960, y: 640 },
     platforms: [
-      [420, 800, 360, 'low'], [1500, 800, 360, 'low'],
-      [960, 660, 320, 'air'],
-      [180, 580, 280, 'air'], [1740, 580, 280, 'air']
+      [400, 800, 340, 'low'], [1520, 800, 340, 'low'],
+      [700, 640, 200, 'air'], [1220, 640, 200, 'air'],
+      [300, 570, 260, 'air'], [1620, 570, 260, 'air']
     ]
   },
   {
     id: 'torres', name: 'Torres',
     background: 0x2B1B3D, platformColor: 0x7A4A8C,
-    dashSpawn: { x: 960, y: 420 },
+    dashSpawn: { x: 960, y: 640 },
     platforms: [
-      [260, 790, 300, 'low'], [1660, 790, 300, 'low'], [960, 790, 220, 'low'],
-      [560, 600, 240, 'air'], [1360, 600, 240, 'air'],
-      [960, 480, 280, 'air']
+      [300, 790, 280, 'low'], [1620, 790, 280, 'low'],
+      [700, 790, 200, 'low'], [1220, 790, 200, 'low'],
+      [450, 590, 240, 'air'], [1470, 590, 240, 'air'],
+      [650, 400, 200, 'air'], [1270, 400, 200, 'air']
     ]
   },
   {
     id: 'piramide', name: 'Pirámide',
     background: 0x1B3B2E, platformColor: 0x3F7A5C,
-    dashSpawn: { x: 960, y: 480 },
+    dashSpawn: { x: 960, y: 640 },
     platforms: [
-      [960, 800, 700, 'low'], [960, 590, 380, 'air'], [960, 380, 180, 'air'],
-      [260, 780, 300, 'low'], [1660, 780, 300, 'low'],
-      [300, 550, 220, 'air'], [1620, 550, 220, 'air']
+      [400, 800, 500, 'low'], [1520, 800, 500, 'low'],
+      [400, 600, 300, 'air'], [1520, 600, 300, 'air'],
+      [400, 400, 140, 'air'], [1520, 400, 140, 'air']
     ]
   }
 ];

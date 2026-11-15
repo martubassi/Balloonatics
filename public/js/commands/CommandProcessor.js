@@ -1,4 +1,4 @@
-import { MoveCommand, JumpCommand, DropCommand, UsePowerUpCommand } from './Commands.js';
+import { MoveCommand, JumpCommand, JumpReleaseCommand, DropCommand, UsePowerUpCommand } from './Commands.js';
 
 export class CommandProcessor {
   constructor() {
@@ -32,6 +32,7 @@ export class CommandProcessor {
     switch (data.type) {
       case 'MOVE': return new MoveCommand(player, data.direction);
       case 'JUMP': return new JumpCommand(player);
+      case 'JUMP_RELEASE': return new JumpReleaseCommand(player);
       case 'DROP': return new DropCommand(player, data.active);
       case 'USE_POWERUP': return new UsePowerUpCommand(player);
       default:
