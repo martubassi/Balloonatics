@@ -20,7 +20,7 @@ export class BootScene extends Phaser.Scene {
     MAPS.forEach((m) => box(`platform_${m.id}`, 64, 30, m.platformColor, 6)); // plataformas de cada mapa
 
     g.clear();
-    g.fillStyle(0xffffff, 1).fillCircle(40, 40, 37); // blanco: el color real se aplica con tint (según quién lo tocó)
+    g.fillStyle(0xffffff, 1).fillCircle(40, 40, 37);
     g.lineStyle(6, 0x000000, 1).strokeCircle(40, 40, 37);
     g.generateTexture('balloon', 80, 80);
 

@@ -8,52 +8,48 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
 
     this.id = id;
     this.displayName = name;
-    this.rivalDirection = rivalDirection; // +1 si el rival está a la derecha, -1 a la izquierda
-    this.authority = 'LOCAL';             // en el online, el otro jugador será 'REMOTE'
+    this.rivalDirection = rivalDirection;
+    this.authority = 'LOCAL';
     this.spawn = { x, y };
     this.lives = PLAYER.lives;
 
     this.moveDir = 0;
-    this.facing = rivalDirection;         // última dirección de movimiento (para el Dash)
+    this.facing = rivalDirection;
     this.wantsDrop = false;
-    this.dropThroughUntil = -Infinity;    // hasta cuándo se atraviesan las plataformas (ms)
-    this.lastGroundedAt = -Infinity;      // para el Coyote Time
+    this.dropThroughUntil = -Infinity;
+    this.lastGroundedAt = -Infinity;
+    this.airJumpsLeft = PLAYER.airJumps;
 
-    // Potenciadores
-    this.held = null;     // 'heavy' | 'dash' | 'slip' (uno a la vez)
+    this.held = null;
     this.dashCharges = 0;
-    this.dashWindow = 0;  // ms restantes con el Dash activo
-    this.dashBurst = 0;   // ms restantes del impulso actual
+    this.dashWindow = 0;
+    this.dashBurst = 0;
     this.dashDir = rivalDirection;
-    this.slipTime = 0;    // ms restantes con el suelo resbaladizo (efecto del rival)
-
-    this.airJumpsLeft = PLAYER.airJumps;  // saltos extra en el aire
+    this.slipTime = 0;
 
     this.setCollideWorldBounds(true);
-    // Gravedad efectiva = gravedad del mundo + gravedad del cuerpo
     this.body.setGravityY(PLAYER.gravity - WORLD_GRAVITY);
   }
 
   get onGround() { return this.body.blocked.down || this.body.touching.down; }
 
   move(direction) { this.moveDir = direction; }
+
+  // "Abajo": apoyado atraviesa la plataforma; cayendo, da un impulso y luego acelera por gravedad
   drop(active) {
     this.wantsDrop = active;
-    // Solo se atraviesa una plataforma si se pulsa "abajo" estando apoyado; en el aire solo sirve para caer más rápido
     if (active && this.onGround) this.dropThroughUntil = this.scene.time.now + PLAYER.dropThroughTime;
-    // Respuesta inmediata al pulsar "abajo" cayendo: un pequeño impulso inicial, y luego sigue acelerando por gravedad
     if (active && !this.onGround && this.body.velocity.y >= 0) {
       this.setVelocityY(Math.min(this.body.velocity.y + PLAYER.fastFallKick, PLAYER.fastFallSpeed));
     }
   }
 
+  // Salto con Coyote Time (0,2 s tras dejar el borde) y doble salto en el aire
   jump(now) {
-    // Coyote Time: se puede saltar hasta 0,2 s después de dejar el borde
     if (now - this.lastGroundedAt <= PLAYER.coyoteTime) {
       this.setVelocityY(-PLAYER.jumpSpeed);
-      this.lastGroundedAt = -Infinity; // evita doble salto dentro de la ventana
+      this.lastGroundedAt = -Infinity;
     } else if (this.airJumpsLeft > 0) {
-      // Doble salto en el aire
       this.airJumpsLeft -= 1;
       this.setVelocityY(-PLAYER.airJumpSpeed);
     }
@@ -114,12 +110,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       const target = this.moveDir * PLAYER.speed;
       let vx;
       if (this.slipTime > 0 && this.onGround) {
-        // Con el calzado del rival, en el suelo se acelera y frena poco a poco
         const t = 1 - Math.pow(1 - POWERUP.slip.grip, delta / 16.67);
         vx = Phaser.Math.Linear(own, target, t);
       } else {
-        // Aceleración / frenada limitada (más inercia en el aire)
-        const reversing = this.moveDir !== 0 && Math.sign(own) === -this.moveDir; // invierte el sentido
+        const reversing = this.moveDir !== 0 && Math.sign(own) === -this.moveDir;
         const rate = this.moveDir === 0
           ? (this.onGround ? PLAYER.groundFriction : PLAYER.airFriction)
           : (this.onGround ? PLAYER.groundAccel : (reversing ? PLAYER.airTurnAccel : PLAYER.airAccel));
@@ -129,11 +123,10 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.setVelocityX(vx);
     }
 
-    // Descenso rápido: mientras cae y se mantiene "abajo" el jugador pesa más (más gravedad y mayor velocidad límite)
     const fastFalling = this.wantsDrop && !this.onGround && this.body.velocity.y > 0;
     this.body.setGravityY(PLAYER.gravity * (fastFalling ? PLAYER.fastFallGravity : 1) - WORLD_GRAVITY);
     const maxFall = fastFalling ? PLAYER.fastFallSpeed : PLAYER.maxFallSpeed;
-    if (this.body.velocity.y > maxFall) this.setVelocityY(maxFall); // velocidad de caída limitada (sensación flotante)
+    if (this.body.velocity.y > maxFall) this.setVelocityY(maxFall);
   }
 
   respawn() {
