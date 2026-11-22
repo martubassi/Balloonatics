@@ -153,11 +153,13 @@ su oponente mientras conserve al menos una.
   velocidad constante, salto preciso y la capacidad de agacharse para
   modular su desplazamiento o pasar bajo obstáculos. El movimiento se
   desarrolla en el plano de la arena 2D.
+- **Doble Salto:** Los personajes tienen la posibilidad de saltar en mitad
+  del aire para llegar más alto y poder alcanzar el globo o una plataforma. 
 - **Coyote Time:** Margen de gracia de 0,2 segundos que permite ejecutar
   un salto justo después de abandonar el borde de una plataforma.
   Funciona de manera independiente para cada jugador.
-- **Condición de victoria y derrota:** Cuando el globo toca el suelo o
-  un obstáculo letal, el jugador cuyo sector provoca el fallo pierde una
+- **Condición de victoria y derrota:** Cuando el globo toca el suelo,
+- el jugador cuyo sector provoca el fallo pierde una
   vida. Gana la partida quien agote todas las vidas del contrincante
   conservando las propias.
 
@@ -186,22 +188,18 @@ Figura 1. Coyote Timing en Celeste
   - **Con plataformas:** Los personajes y el globo interactúan con los
     límites sólidos del escenario. Algunas plataformas permiten
     atravesarlas desde abajo y aterrizar sobre ellas.
-  - **Entre jugadores:** La interacción física evita bloqueos injustos y
-    permite disputar el espacio bajo el globo sin que los empujones
-    decidan directamente la partida.
+  - **Con la mitad del campo:** Los personajes son incapaces de cruzar
+    al campo contrario, esto limita su espacio y evita molestar al rival
+    en su propia parte del escenario.
   - **Con el globo:** Los golpes modifican su trayectoria mediante un
     impulso cuya dirección depende del punto de contacto. Si el globo
-    toca el suelo o un obstáculo letal, se aplica la condición de
+    toca el suelo, se aplica la condición de
     derrota correspondiente.
 - **Rebotes, fricción y empujes:** El globo rebota contra paredes y
   techos, modificando su trayectoria según el ángulo y la velocidad del
   impacto. La fricción de los personajes permite controlar las frenadas
-  y los cambios de dirección.
-- **Plataformas móviles y superficies especiales:** Las plataformas
-  móviles y las superficies con propiedades físicas especiales pueden
-  modificar las rutas de movimiento y las trayectorias del globo. Estos
-  elementos añaden variables que los jugadores deben considerar al
-  posicionarse e interceptar.
+  y los cambios de dirección. El globo, si colisiona con un jugador, no
+  puede volver a su campo, si el rival no ha colisionado con él.
 - **Progresión de la dificultad:** Cada golpe consecutivo aumenta el
   multiplicador de velocidad del globo en +0,2x, desde 1,0x hasta un
   máximo de 10,0x. Esto reduce progresivamente el tiempo de reacción y
@@ -216,6 +214,10 @@ con estética retrofuturista, repleta de maquinaria científica, bobinas
 de energía y tuberías de helio. Pip y Beto se enfrentan en un duelo de
 supervivencia donde deben mantener el globo en el aire y desviarlo hacia
 el sector rival para provocar errores y agotar las vidas del oponente.
+
+Hay tres formas en las que se puede mostrar el escenario, estas se eligen 
+en la pantalla de selección de mapa y, en caso de empate, el juego elige 
+aleatoriamente entre los mapas seleccionados.
 
 ## 4. Narrativa
 
