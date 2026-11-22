@@ -1,44 +1,5 @@
 # Balloonatics
 
-## Ejecutar y editar los sprites
-
-Con Node instalado, `npm run dev` abre el servidor en `http://127.0.0.1:4173`.
-El navegador necesita conexión para cargar Phaser desde el CDN.
-Los títulos, botones y el marcador utilizan Tektur (Adam Jagosz), servida por
-Google Fonts. Los textos de ayuda mantienen Arial para facilitar la lectura.
-La carga de la tipografía se espera antes de crear las escenas de Phaser;
-si falla, se utiliza una fuente del sistema. La configuración está en
-`public/js/typography.js` y el enlace de Google Fonts en `public/index.html`.
-
-Los originales están en `imagenes/`. Pip y Beto son SVG sencillos y editables
-en `imagenes/personajes/`, con forma de matrioska y sin fondo. Tras editar el
-arte, ejecuta `npm install` y `npm run assets` para actualizar `public/assets/`.
-El juego ya incluye los PNG preparados y no necesita regenerarlos para jugar.
-
-El catálogo de recursos está en `public/js/assets.js`. Las escenas usan claves
-de textura, independientes de los nombres de archivo. El balanceo, los botes
-y la compresión al aterrizar están en `SpriteMotion.js`; solo animan la imagen
-y mantienen la colisión original de 64 × 96 píxeles.
-
-`uiTextures.js` genera piezas de interfaz con bordes de tamaño fijo. Los paneles
-usan nueve secciones para adaptarse al contenido sin deformar las esquinas.
-`arenaVisuals.js` comparte el contraste de fondos, las plataformas y el divisor
-central entre las arenas y sus vistas previas. El giro del globo es visual y
-no modifica su trayectoria ni su colisión circular.
-Las plataformas usan los recortes de los PNG originales: extremos fijos y un
-centro repetido con TileSprite, a la misma escala en cualquier longitud.
-Los controles de volumen son interactivos y tienen extremos redondeados.
-Los marcos grandes de Ajustes, Créditos y Pausa utilizan
-`imagenes/marco_laboratorio_hd.png`, redibujado a alta resolución con el generador
-de imágenes. `createWindow` mantiene una escala uniforme y centra el título en
-la placa. Los personajes se exportan a 512 × 768 para el podio de resultados.
-La pantalla de victoria muestra ambos puestos, anima al ganador y lanza confeti.
-Pausa permite abrir Ajustes y regresar a la partida sin reiniciarla.
-
-`npm test` comprueba recursos, sintaxis, animación, saltos y limpieza de eventos
-con un doble de física. Para la prueba completa en navegador: instala las
-dependencias, ejecuta `npx playwright install chromium` y `npm run test:browser`.
-
 ## Descripción y temática
 
 **Balloonatics** es un *party-platformer* competitivo en 2D para dos

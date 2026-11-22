@@ -8,10 +8,9 @@ export const ASSETS = {
 };
 for (const id of ['clasico', 'torres', 'piramide']) {
   ASSETS[`background_${id}`] = `balloonatics_fondo_${id}_1920x1080`;
-  ASSETS[`preview_${id}`] = `balloonatics_fondo_mapa_${id}`;
 }
 for (const player of ['pip', 'beto']) {
-  for (const state of ['full', 'half', 'empty']) {
+  for (const state of ['full', 'empty']) {
     ASSETS[`heart_${player}_${state}`] = `heart_${player}_${state}`;
   }
 }

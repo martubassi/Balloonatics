@@ -28,7 +28,7 @@ const config = {
 };
 
 await loadDisplayFont();
-export const game = new Phaser.Game(config);
+new Phaser.Game(config);
 
 // El audio se desbloquea antes de que el primer botón lo reproduzca.
 ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, () => audio.unlock(), true));
