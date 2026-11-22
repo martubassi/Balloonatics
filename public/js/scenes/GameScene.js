@@ -5,6 +5,7 @@ import {
 import { getMap } from '../maps.js';
 import { Player } from '../entities/Player.js';
 import { Balloon } from '../entities/Balloon.js';
+import { audio } from '../systems/AudioManager.js';
 import { PowerUpManager } from '../systems/PowerUpManager.js';
 import { CommandProcessor } from '../commands/CommandProcessor.js';
 import { MoveCommand, JumpCommand, JumpReleaseCommand, DropCommand, UsePowerUpCommand } from '../commands/Commands.js';
@@ -16,7 +17,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   init(data) {
-    this.map = getMap(data && data.mapId);
+    this.map = getMap(data && data.mapId); // mapa elegido en la votación
   }
 
   create() {
@@ -28,25 +29,30 @@ export class GameScene extends Phaser.Scene {
     this.powerUps = new PowerUpManager(this, [this.player1, this.player2], this.balloon, this.map);
     this.createInput();
     this.createHud();
+    audio.playMusic('game');
 
     this.input.keyboard.on('keydown-ESC', () => {
       this.scene.pause();
       this.scene.launch('PauseScene', { escenaOrigen: 'GameScene' });
     });
 
+    // Sorteo del primer saque
     this.server = Phaser.Utils.Array.GetRandom([this.player1, this.player2]);
     this.startRound();
   }
 
   createArena() {
     this.cameras.main.setBackgroundColor(this.map.background);
+    // Sectores: izquierda = Pip, derecha = Beto
     this.add.rectangle(GAME_WIDTH / 4, GAME_HEIGHT / 2, GAME_WIDTH / 2, GAME_HEIGHT, COLORS.pip, 0.05);
     this.add.rectangle(GAME_WIDTH * 3 / 4, GAME_HEIGHT / 2, GAME_WIDTH / 2, GAME_HEIGHT, COLORS.beto, 0.05);
     this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, 4, GAME_HEIGHT, 0xffffff, 0.1);
 
+    // Muro central invisible (cuerpo estático): separa los dos campos
     this.centerWall = this.add.rectangle(GAME_WIDTH / 2, GAME_HEIGHT / 2, CENTER_WALL_WIDTH, GAME_HEIGHT);
     this.physics.add.existing(this.centerWall, true);
 
+    // El suelo es la zona de fallo: los jugadores lo pisan, el globo lo atraviesa y puntúa
     this.floor = this.physics.add.staticGroup();
     this.floor.create(GAME_WIDTH / 2, FLOOR_TOP + FLOOR_HEIGHT / 2, `platform_${this.map.id}`)
       .setDisplaySize(GAME_WIDTH, FLOOR_HEIGHT).refreshBody();
@@ -63,7 +69,7 @@ export class GameScene extends Phaser.Scene {
     this.player1 = new Player(this, { id: 'p1', name: 'Pip', texture: 'pip', x: 480, y, rivalDirection: 1 });
     this.player2 = new Player(this, { id: 'p2', name: 'Beto', texture: 'beto', x: 1440, y, rivalDirection: -1 });
 
-    this.player1.rival = this.player2;
+    this.player1.rival = this.player2; // el globo apunta lejos del rival
     this.player2.rival = this.player1;
 
     this.commandProcessor.players.clear();
@@ -74,9 +80,13 @@ export class GameScene extends Phaser.Scene {
     const players = [this.player1, this.player2];
     this.physics.add.collider(players, this.floor);
     this.physics.add.collider(players, this.platforms, null, this.canLand, this);
+    // El globo no colisiona con las plataformas desde que se golpea hasta que cruza la mitad del mapa
     this.physics.add.collider(this.balloon, this.platforms, null, (balloon) => !balloon.passThrough, this);
+    // Los jugadores no pueden cruzar el centro
     this.physics.add.collider(players, this.centerWall);
+    // El globo solo choca con el muro una vez ha cruzado de campo (para que no rebote de vuelta sin querer)
     this.physics.add.collider(this.balloon, this.centerWall, null, (balloon) => balloon.crossedMid, this);
+    // Overlap (no collider): el impulso al globo lo calculamos nosotros en Balloon.hitBy
     this.physics.add.overlap(players, this.balloon, (player, balloon) => {
       if (this.roundActive && balloon.hitBy(player, this.time.now)) {
         this.powerUps.onBalloonHit(balloon.hits);
@@ -84,7 +94,7 @@ export class GameScene extends Phaser.Scene {
     });
   }
 
-  // Plataformas de un solo sentido: se aterriza desde arriba y se atraviesan subiendo o pulsando "abajo" apoyado
+  // Plataformas de un solo sentido: se aterriza desde arriba y se atraviesan subiendo o pulsando "abajo"
   canLand(player, platform) {
     return this.time.now >= player.dropThroughUntil
       && player.body.velocity.y >= 0
@@ -98,6 +108,7 @@ export class GameScene extends Phaser.Scene {
       { player: this.player2, keys: kb.createCursorKeys(), useKey: POWERUP_KEYS.p2, dir: 0, drop: false }
     ];
 
+    // Usar potenciador (Shift izquierdo/derecho se distinguen por event.code)
     kb.on('keydown', (event) => {
       const b = this.bindings.find((x) => x.useKey === event.code);
       if (b && !event.repeat && this.roundActive) {
@@ -122,6 +133,7 @@ export class GameScene extends Phaser.Scene {
   }
 
   startRound() {
+    // El globo espera en el centro y saldrá hacia el campo rival del jugador que saca
     this.balloon.reset(GAME_WIDTH / 2, SERVE_Y);
     this.balloon.holdFor(this.server);
     this.serveText.setText(`SAQUE: ${this.server.displayName.toUpperCase()}`)
@@ -131,6 +143,7 @@ export class GameScene extends Phaser.Scene {
 
     let n = COUNTDOWN_SECONDS;
     this.centerText.setText(String(n));
+    audio.play('countdown');
     this.time.addEvent({
       delay: 1000,
       repeat: COUNTDOWN_SECONDS - 1,
@@ -138,10 +151,12 @@ export class GameScene extends Phaser.Scene {
         n -= 1;
         if (n > 0) {
           this.centerText.setText(String(n));
+          audio.play('countdown');
         } else {
           this.centerText.setText('');
           this.serveText.setText('');
           this.balloon.serve();
+          audio.play('go');
           this.roundActive = true;
         }
       }
@@ -154,10 +169,12 @@ export class GameScene extends Phaser.Scene {
     this.powerUps.clearField();
     this.cameras.main.shake(200, 0.01);
 
+    // Pierde una vida el jugador en cuyo sector cae el globo
     const loser = this.balloon.x < GAME_WIDTH / 2 ? this.player1 : this.player2;
     const winner = loser === this.player1 ? this.player2 : this.player1;
     loser.lives -= 1;
-    this.server = winner;
+    audio.play(loser.lives <= 0 ? 'lose' : 'loseLife');
+    this.server = winner; // saca quien ganó el punto
 
     if (loser.lives <= 0) {
       this.time.delayedCall(1000, () => {

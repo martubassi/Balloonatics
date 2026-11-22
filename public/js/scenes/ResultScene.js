@@ -1,10 +1,14 @@
 import { GAME_WIDTH } from '../config.js';
 import { createButton } from '../ui.js';
+import { audio } from '../systems/AudioManager.js';
 
 export class ResultScene extends Phaser.Scene {
   constructor() { super('ResultScene'); }
 
   create(datos) {
+    audio.stopMusic();
+    audio.play('win');
+
     this.add.text(GAME_WIDTH / 2, 320, `¡Gana ${datos.ganador}!`, {
       fontFamily: 'Arial', fontSize: '140px', fontStyle: 'bold', color: datos.color,
       stroke: '#000000', strokeThickness: 10

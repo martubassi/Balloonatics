@@ -1,5 +1,6 @@
 import { GAME_WIDTH, FLOOR_TOP, FLOOR_HEIGHT, PLATFORM_HEIGHT } from '../config.js';
 import { MAPS, getMap, resolveMapVote } from '../maps.js';
+import { audio } from '../systems/AudioManager.js';
 
 const CARD = { w: 480, h: 270, y: 450, gap: 120 };
 
@@ -8,6 +9,7 @@ export class MapVoteScene extends Phaser.Scene {
 
   create() {
     this.resolved = false;
+    audio.playMusic('menu');
 
     this.add.text(GAME_WIDTH / 2, 110, 'ELIGE EL MAPA', {
       fontFamily: 'Arial', fontSize: '100px', fontStyle: 'bold', color: '#F5C518',
@@ -76,11 +78,12 @@ export class MapVoteScene extends Phaser.Scene {
       const down = justDown(p.keys.down);
 
       if (p.vote === null) {
-        if (left) p.cursor = (p.cursor + MAPS.length - 1) % MAPS.length;
-        if (right) p.cursor = (p.cursor + 1) % MAPS.length;
-        if (up) p.vote = MAPS[p.cursor].id;
+        if (left) { p.cursor = (p.cursor + MAPS.length - 1) % MAPS.length; audio.play('move'); }
+        if (right) { p.cursor = (p.cursor + 1) % MAPS.length; audio.play('move'); }
+        if (up) { p.vote = MAPS[p.cursor].id; audio.play('select'); }
       } else if (down) {
         p.vote = null;
+        audio.play('back');
       }
       this.refresh(p);
     });
@@ -90,6 +93,7 @@ export class MapVoteScene extends Phaser.Scene {
 
   resolve() {
     this.resolved = true;
+    audio.play('confirm');
     const [a, b] = this.players;
     const { mapId, random } = resolveMapVote(a.vote, b.vote);
     const name = getMap(mapId).name;

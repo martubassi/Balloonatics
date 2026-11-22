@@ -1,4 +1,5 @@
 import { POWERUP } from '../config.js';
+import { audio } from './AudioManager.js';
 
 // Cajas de potenciador: aparición, recogida y activación.
 // Globo pesado (plataformas aéreas, cada 20 s), Dash (centro, cada 5 golpes seguidos)
@@ -58,6 +59,7 @@ export class PowerUpManager {
   collect(player, box) {
     if (player.held) return; // un potenciador a la vez
     player.held = box.kind;
+    audio.play(`pickup_${box.kind}`); // un sonido distinto por potenciador
     box.destroy();
   }
 

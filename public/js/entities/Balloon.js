@@ -1,3 +1,4 @@
+import { audio } from '../systems/AudioManager.js';
 import { BALLOON, COLORS, POWERUP, WORLD_GRAVITY, GAME_WIDTH, FLOOR_TOP, CENTER_WALL_WIDTH } from '../config.js';
 
 export class Balloon extends Phaser.Physics.Arcade.Image {
@@ -6,26 +7,25 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
     scene.add.existing(this);
     scene.physics.add.existing(this);
 
-    this.setCircle(BALLOON.radius, 3, 3);
+    this.setCircle(BALLOON.radius, 3, 3); // la textura es de 80x80
     this.setBounce(1);
     this.setCollideWorldBounds(true);
 
     this.multiplier = 1;
-    this.hits = 0;
-    this.heavyTime = 0;
+    this.hits = 0;        // golpes seguidos en el punto actual
+    this.heavyTime = 0;   // ms restantes de "globo pesado"
     this.lastHitAt = -Infinity;
-    this.lastHitBy = null;
-    this.passThrough = false;
-    this.hitSide = 0;
-    this.crossedMid = false;
+    this.lastHitBy = null; // último jugador que lo tocó: no puede volver a tocarlo hasta que lo haga el rival
+    this.passThrough = false; // sin colisión con plataformas: desde el golpe hasta cruzar la mitad del mapa
+    this.hitSide = 0;         // lado del mapa (-1 izquierda, 1 derecha) en el que se golpeó
+    this.crossedMid = false;  // ya cruzó al otro campo: ahora choca con el muro central
 
     this.applyWeight();
     this.refreshColor();
   }
 
   get speed() { return BALLOON.baseSpeed * this.multiplier; }
-
-  // 0..1: el peso y la velocidad máximos se alcanzan con el multiplicador BALLOON.weightRampAt
+  // 0..1: el peso/velocidad máximos se alcanzan con el multiplicador BALLOON.weightRampAt
   get heaviness() {
     return Math.min((this.multiplier - 1) / (BALLOON.weightRampAt - 1), 1);
   }
@@ -46,7 +46,7 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
     this.lastHitBy = null;
     this.passThrough = false;
     this.crossedMid = false;
-    this.clearHeavy();
+    this.clearHeavy(); // también recalcula el peso (applyWeight) y el color
     this.freezeBody();
   }
 
@@ -70,17 +70,19 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
   serve() {
     this.body.setAllowGravity(true);
     this.passThrough = true;
-    this.hitSide = -this.lastHitBy.rivalDirection;
+    this.hitSide = -this.lastHitBy.rivalDirection; // parte del campo del sacador (aunque esté en el centro)
     this.crossedMid = false;
     this.launchTowardsRival(this.lastHitBy);
   }
 
-  // Gravedad y drag según el peso del globo (la gravedad se multiplica con el potenciador pesado)
+  // Aplicar la gravedad y el drag según la velocidad del globo (heaviness).
+  // Si el potenciador "globo pesado" está activo, multiplica la gravedad.
   applyWeight() {
     const t = this.heaviness;
     const heavyFactor = this.heavyTime > 0 ? POWERUP.heavy.gravityFactor : 1;
     this.gravityY = Phaser.Math.Linear(BALLOON.gravityMin, BALLOON.gravityMax, t) * heavyFactor;
     this.drag = Phaser.Math.Linear(BALLOON.dragMin, BALLOON.dragMax, t);
+    // Gravedad efectiva = gravedad del mundo + gravedad del cuerpo (así cae más lento)
     this.body.setGravityY(this.gravityY - WORLD_GRAVITY);
     this.setDamping(true);
     this.body.setDrag(this.drag, this.drag);
@@ -89,6 +91,7 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
   // Globo pesado: más gravedad y deriva hacia el campo rival de quien lo activa
   makeHeavy(owner) {
     this.heavyTime = POWERUP.heavy.duration;
+    audio.play('heavyUse');
     this.applyWeight();
     this.body.setAccelerationX(owner.rivalDirection * POWERUP.heavy.drift);
     this.refreshColor();
@@ -129,6 +132,7 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
       ? Phaser.Math.Between(half + margin, GAME_WIDTH - margin)
       : Phaser.Math.Between(margin, half - margin));
 
+    // Destino aleatorio en el sector rival; de varios intentos se elige el más lejos del rival
     let targetX = pickX();
     if (player.rival) {
       for (let i = 1; i < BALLOON.aimTries; i++) {
@@ -140,20 +144,24 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
 
     const dx = targetX - this.x;
     const c = -Math.log(this.drag);
-    const a = this.gravityY / c;
+    const a = this.gravityY / c; // velocidad terminal de caída
 
+    // 1) Salida SIEMPRE hacia arriba -> garantiza la parábola
     let vy = -Phaser.Math.Linear(BALLOON.liftMin, BALLOON.liftMax, this.heaviness);
 
+    // Que el punto más alto no llegue al techo (si no, rebotaría y fallaría el destino)
     const apexY = (v) => {
       const tA = Math.log((a - v) / a) / c;
       return this.y + a * tA + (v - a) * (1 - Math.exp(-c * tA)) / c;
     };
     while (apexY(vy) < BALLOON.radius + 40 && vy < -300) vy *= 0.95;
 
+    // 2) Tiempo que tarda en volver a bajar hasta targetY (y(t) con rozamiento)
     const yAt = (t) => this.y + a * t + (vy - a) * (1 - Math.exp(-c * t)) / c;
     let T = 0.05;
     while (T < 10 && !(yAt(T) >= targetY && T > 0.2)) T += 1 / 120;
 
+    // 3) Velocidad horizontal que llega justo al destino en ese tiempo
     const vx = dx * c / (1 - Math.exp(-c * T));
 
     this.setVelocity(vx, vy);
@@ -162,8 +170,8 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
   // Golpe de un jugador: +0,2x de velocidad y trayectoria hacia el sector rival.
   // Devuelve true si el golpe cuenta.
   hitBy(player, now) {
-    if (player === this.lastHitBy) return false;
-    if (now - this.lastHitAt < BALLOON.hitCooldown) return false;
+    if (player === this.lastHitBy) return false;                 // mismo color: no puede tocarlo
+    if (now - this.lastHitAt < BALLOON.hitCooldown) return false; // anti-doble-golpe entre jugadores
     this.lastHitAt = now;
     this.lastHitBy = player;
     this.refreshColor();
@@ -171,12 +179,13 @@ export class Balloon extends Phaser.Physics.Arcade.Image {
     this.hits += 1;
     this.multiplier = Math.min(this.multiplier + BALLOON.speedStep, BALLOON.maxMultiplier);
 
-    if (this.heavyTime > 0) this.clearHeavy();
-    this.passThrough = true;
-    this.hitSide = this.x < GAME_WIDTH / 2 ? -1 : 1;
-    this.crossedMid = false;
+    if (this.heavyTime > 0) this.clearHeavy(); // golpear el globo pesado le quita el efecto
+    this.passThrough = true;                   // al inicio del vuelo no colisiona con las plataformas...
+    this.hitSide = this.x < GAME_WIDTH / 2 ? -1 : 1; // ...hasta que cruce la mitad del mapa (tickFlight)
+    this.crossedMid = false;                   // el muro central no le afecta hasta que cruce
 
     this.launchTowardsRival(player);
+    audio.play('hit', { rate: 1 + (this.multiplier - 1) * 0.08 }); // más agudo cuanto más rápido
     return true;
   }
 }
