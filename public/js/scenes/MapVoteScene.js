@@ -1,24 +1,39 @@
-import { GAME_WIDTH, FLOOR_TOP, FLOOR_HEIGHT, PLATFORM_HEIGHT } from '../config.js';
+import { onSceneKey } from '../sceneInput.js';
+import { FONT_DISPLAY } from '../typography.js';
+import { GAME_WIDTH, FLOOR_TOP, FLOOR_HEIGHT } from '../config.js';
 import { MAPS, getMap, resolveMapVote } from '../maps.js';
 import { audio } from '../systems/AudioManager.js';
 
-const CARD = { w: 480, h: 270, y: 450, gap: 120 };
+import { createBackdrop, createPanel } from '../ui.js';
+import { drawArenaBackground, drawPlatform } from '../arenaVisuals.js';
+
+export const MAP_CARD_LAYOUT = { w: 480, h: 270, y: 490, gap: 120, footer: 112, titleGap: 30 };
+const CARD = MAP_CARD_LAYOUT;
 
 export class MapVoteScene extends Phaser.Scene {
   constructor() { super('MapVoteScene'); }
 
   create() {
+    createBackdrop(this);
     this.resolved = false;
     audio.playMusic('menu');
 
     this.add.text(GAME_WIDTH / 2, 110, 'ELIGE EL MAPA', {
-      fontFamily: 'Arial', fontSize: '100px', fontStyle: 'bold', color: '#F5C518',
+      fontFamily: FONT_DISPLAY, fontSize: '82px', fontStyle: 'bold', color: '#F5C518',
       stroke: '#000000', strokeThickness: 10
     }).setOrigin(0.5);
-    this.add.text(GAME_WIDTH / 2, 200,
-      'J1: A/D mover · W votar · S cambiar        J2: ←/→ mover · ↑ votar · ↓ cambiar', {
-        fontFamily: 'Arial', fontSize: '32px', color: '#9aa0c8'
+    [
+      { x: 500, name: 'PIP · J1', color: '#ff8297', keys: 'A / D: mover   W: votar   S: cambiar voto' },
+      { x: 1420, name: 'BETO · J2', color: '#7ce7ff', keys: '\u2190 / \u2192: mover   \u2191: votar   \u2193: cambiar voto' }
+    ].forEach(p => {
+      createPanel(this, p.x, 238, 840, 128);
+      this.add.text(p.x, 211, p.name, {
+        fontFamily: FONT_DISPLAY, fontSize: '28px', fontStyle: 'bold', color: p.color
       }).setOrigin(0.5);
+      this.add.text(p.x, 261, p.keys, {
+        fontFamily: 'Arial', fontSize: '32px', color: '#ffffff'
+      }).setOrigin(0.5);
+    });
 
     const start = GAME_WIDTH / 2 - ((MAPS.length - 1) * (CARD.w + CARD.gap)) / 2;
     this.cardX = MAPS.map((_, i) => start + i * (CARD.w + CARD.gap));
@@ -32,38 +47,41 @@ export class MapVoteScene extends Phaser.Scene {
         keys: kb.createCursorKeys() }
     ];
     this.players.forEach((p) => {
-      p.frame = this.add.rectangle(this.cardX[p.cursor], CARD.y, CARD.w + p.pad, CARD.h + p.pad)
-        .setStrokeStyle(10, p.color);
-      p.status = this.add.text(p.statusX, 800, '', {
-        fontFamily: 'Arial', fontSize: '44px', fontStyle: 'bold', color: p.hex
+      p.frame = this.add.rectangle(this.cardX[p.cursor], CARD.y + CARD.footer / 2,
+        CARD.w + 40 + p.pad, CARD.h + CARD.footer + 40 + p.pad)
+        .setStrokeStyle(6, p.color);
+      p.status = this.add.text(p.statusX, 850, '', {
+        fontFamily: FONT_DISPLAY, fontSize: '44px', fontStyle: 'bold', color: p.hex
       }).setOrigin(0.5);
       this.refresh(p);
     });
 
-    kb.once('keydown-ESC', () => this.scene.start('MenuScene'));
+    onSceneKey(this, 'keydown-ESC', () => this.scene.start('MenuScene'));
   }
 
-  // Miniatura del mapa a escala (la arena es 1920x1080, la tarjeta 480x270)
   drawCard(map, cx) {
     const s = CARD.w / GAME_WIDTH;
     const left = cx - CARD.w / 2;
     const top = CARD.y - CARD.h / 2;
+    createPanel(this, cx, CARD.y + CARD.footer / 2, CARD.w + 40, CARD.h + CARD.footer + 40);
+    drawArenaBackground(this, map, CARD.w, CARD.h, cx, CARD.y);
     const g = this.add.graphics();
-    g.fillStyle(map.background, 1).fillRect(left, top, CARD.w, CARD.h);
+
     g.fillStyle(map.platformColor, 1);
     map.platforms.forEach(([x, y, w]) => {
-      g.fillRect(left + (x - w / 2) * s, top + y * s, w * s, Math.max(PLATFORM_HEIGHT * s, 4));
+      drawPlatform(this, map.id, left + x * s, top + y * s, w * s, s);
     });
     g.fillRect(left, top + FLOOR_TOP * s, CARD.w, FLOOR_HEIGHT * s);
     g.lineStyle(4, 0x000000, 1).strokeRect(left, top, CARD.w, CARD.h);
 
-    this.add.text(cx, CARD.y + CARD.h / 2 + 45, map.name, {
-      fontFamily: 'Arial', fontSize: '56px', fontStyle: 'bold', color: '#ffffff'
-    }).setOrigin(0.5);
+    this.add.text(cx, CARD.y + CARD.h / 2 + CARD.titleGap, map.name, {
+      fontFamily: FONT_DISPLAY, fontSize: '48px', fontStyle: 'bold', color: '#ffffff',
+      stroke: '#091324', strokeThickness: 3
+    }).setOrigin(0.5, 0);
   }
 
   refresh(p) {
-    p.frame.setPosition(this.cardX[p.cursor], CARD.y).setAlpha(p.vote === null ? 0.55 : 1);
+    p.frame.setPosition(this.cardX[p.cursor], CARD.y + CARD.footer / 2).setAlpha(p.vote === null ? 0.55 : 1);
     p.status.setText(p.vote === null ? `${p.name}: eligiendo…` : `${p.name}: ✓ ${getMap(p.vote).name}`);
   }
 
@@ -101,8 +119,8 @@ export class MapVoteScene extends Phaser.Scene {
     const msg = random
       ? `${a.name}: ${getMap(a.vote).name}  ·  ${b.name}: ${getMap(b.vote).name}\n¡Sorteo! Sale ${name}`
       : `¡Mapa elegido: ${name}!`;
-    this.add.text(GAME_WIDTH / 2, 940, msg, {
-      fontFamily: 'Arial', fontSize: '52px', fontStyle: 'bold', color: '#ffffff',
+    this.add.text(GAME_WIDTH / 2, 970, msg, {
+      fontFamily: FONT_DISPLAY, fontSize: '44px', fontStyle: 'bold', color: '#ffffff',
       stroke: '#000000', strokeThickness: 6, align: 'center'
     }).setOrigin(0.5);
 

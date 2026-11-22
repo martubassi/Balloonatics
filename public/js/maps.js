@@ -1,9 +1,5 @@
-// Mapas: solo datos. Cada plataforma es [centroX, yTop, ancho, tipo]:
-//   'low' = alcanzable desde el suelo (aquí aparece el Calzado antideslizante)
-//   'air' = aérea (aquí aparece el Globo pesado)
-// Todos son simétricos y recorribles saltando (salto máximo ≈ 275 px; cada escalón sube ≤ 230 px).
-// Reglas: el centro (960 ± 160) queda libre y ninguna plataforma se acerca a menos de 150 px de las paredes.
-// La caja de Dash aparece en el centro libre, a la altura de un salto desde el suelo.
+// Plataforma: [centroX, ySuperior, ancho, tipo].
+// 'low' y 'air' determinan dónde aparecen los potenciadores.
 export const MAPS = [
   {
     id: 'clasico', name: 'Clásico',
@@ -42,7 +38,6 @@ export function getMap(id) {
   return MAPS.find((m) => m.id === id) || MAPS[0];
 }
 
-// Votación: si coinciden, gana ese mapa; si no, se sortea entre los dos votados
 export function resolveMapVote(voteA, voteB, rng = Math.random) {
   if (voteA === voteB) return { mapId: voteA, random: false };
   return { mapId: rng() < 0.5 ? voteA : voteB, random: true };

@@ -2,13 +2,12 @@ import { MoveCommand, JumpCommand, JumpReleaseCommand, DropCommand, UsePowerUpCo
 
 export class CommandProcessor {
   constructor() {
-    this.players = new Map(); // id -> Player
-    this.network = null;      // se enchufará cuando exista la parte online
+    this.players = new Map();
+    this.network = null;
   }
 
   setNetwork(networkManager) { this.network = networkManager; }
 
-  // Comandos del jugador local: ejecutar ya y (si hay red) transmitir
   process(command) {
     const player = command.getPlayer();
     if (player && player.authority === 'LOCAL') {
@@ -19,7 +18,6 @@ export class CommandProcessor {
     }
   }
 
-  // Comandos recibidos por red: solo para jugadores REMOTE
   receiveCommand(data) {
     const player = this.players.get(data.playerId);
     if (player && player.authority === 'REMOTE') {

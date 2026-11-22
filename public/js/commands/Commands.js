@@ -5,7 +5,7 @@ export class Command {
 }
 
 export class MoveCommand extends Command {
-  constructor(player, direction) { // -1 izquierda, 0 parar, 1 derecha
+  constructor(player, direction) {
     super();
     this.player = player;
     this.direction = direction;
@@ -22,7 +22,7 @@ export class JumpCommand extends Command {
   getPlayer() { return this.player; }
 }
 
-export class JumpReleaseCommand extends Command { // se suelta la tecla de salto: salto corto
+export class JumpReleaseCommand extends Command {
   constructor(player) { super(); this.player = player; }
   execute() { this.player.releaseJump(); }
   serialize() { return { type: 'JUMP_RELEASE', playerId: this.player.id }; }
@@ -37,7 +37,7 @@ export class UsePowerUpCommand extends Command {
 }
 
 export class DropCommand extends Command {
-  constructor(player, active) { // active: true mientras se mantiene "abajo"
+  constructor(player, active) {
     super();
     this.player = player;
     this.active = active;

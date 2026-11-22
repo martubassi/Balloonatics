@@ -1,14 +1,9 @@
 import { AUDIO } from '../config.js';
 
-// Sistema de sonido 100% sintetizado con Web Audio (sin assets).
-// Tres canales con su propio volumen: music, sfx (efectos del juego) y ui (botones).
-// Uso: audio.play('hit'), audio.playMusic('game'), audio.setVolume('music', 0.5)
-
 const STORAGE_KEY = 'balloonatics.audio';
-const CHANNEL_BASE = { music: 0.35, sfx: 0.7, ui: 0.6 }; // ganancia máxima de cada canal
+const CHANNEL_BASE = { music: 0.35, sfx: 0.7, ui: 0.6 };
 const midi = (n) => 440 * Math.pow(2, (n - 69) / 12);
 
-// ---------- Música: bucle de 4 compases (Am - F - C - G) en corcheas ----------
 const CHORDS = [
   [45, [0, 3, 7, 12]], // La menor
   [41, [0, 4, 7, 12]], // Fa mayor
@@ -21,9 +16,7 @@ const SONGS = {
   game: { bpm: 136, drums: true, arpVol: 0.09, bassVol: 0.2 }
 };
 
-// ---------- Efectos: cada uno dibuja sus tonos/ruido en (dest, t) ----------
 const SFX = {
-  // Botones y menús (canal "ui")
   hover:   { ch: 'ui', fn: (m, d, t) => m.tone(d, { freq: 900, dur: 0.05, vol: 0.15, when: t }) },
   click:   { ch: 'ui', fn: (m, d, t) => m.tone(d, { freq: 500, slideTo: 900, dur: 0.09, type: 'square', vol: 0.18, when: t }) },
   back:    { ch: 'ui', fn: (m, d, t) => m.tone(d, { freq: 700, slideTo: 350, dur: 0.1, type: 'square', vol: 0.16, when: t }) },
@@ -31,13 +24,11 @@ const SFX = {
   select:  { ch: 'ui', fn: (m, d, t) => { m.tone(d, { freq: 660, dur: 0.08, type: 'square', vol: 0.15, when: t }); m.tone(d, { freq: 990, dur: 0.12, type: 'square', vol: 0.15, when: t + 0.07 }); } },
   confirm: { ch: 'ui', fn: (m, d, t) => [523, 659, 784].forEach((f, i) => m.tone(d, { freq: f, dur: 0.12, type: 'square', vol: 0.16, when: t + i * 0.08 })) },
 
-  // Partida (canal "sfx")
   countdown: { ch: 'sfx', fn: (m, d, t) => m.tone(d, { freq: 660, dur: 0.12, type: 'square', vol: 0.2, when: t }) },
   go:        { ch: 'sfx', fn: (m, d, t) => { m.tone(d, { freq: 880, slideTo: 1320, dur: 0.3, type: 'square', vol: 0.22, when: t }); m.tone(d, { freq: 440, dur: 0.3, type: 'triangle', vol: 0.25, when: t }); } },
   step:      { ch: 'sfx', fn: (m, d, t) => { m.noise(d, { dur: 0.05, vol: 0.07, hp: 900, when: t }); m.tone(d, { freq: 90, dur: 0.05, type: 'triangle', vol: 0.1, when: t }); } },
   jump:      { ch: 'sfx', fn: (m, d, t) => m.tone(d, { freq: 280, slideTo: 560, dur: 0.16, vol: 0.3, when: t }) },
   airJump:   { ch: 'sfx', fn: (m, d, t) => m.tone(d, { freq: 420, slideTo: 900, dur: 0.16, type: 'triangle', vol: 0.3, when: t }) },
-  // Golpe al globo: el tono sube con la velocidad (opts.rate)
   hit: { ch: 'sfx', fn: (m, d, t, o) => {
     const r = o.rate || 1;
     m.tone(d, { freq: 520 * r, slideTo: 180 * r, dur: 0.18, type: 'triangle', vol: 0.4, when: t });
@@ -45,17 +36,14 @@ const SFX = {
     m.noise(d, { dur: 0.06, vol: 0.25, hp: 1200, when: t });
   } },
 
-  // Recoger potenciador: uno distinto para cada uno
   pickup_heavy: { ch: 'sfx', fn: (m, d, t) => { m.tone(d, { freq: 220, slideTo: 110, dur: 0.35, type: 'sawtooth', vol: 0.22, when: t }); m.tone(d, { freq: 110, dur: 0.4, vol: 0.3, when: t + 0.05 }); } },
   pickup_dash:  { ch: 'sfx', fn: (m, d, t) => [600, 800, 1000, 1400].forEach((f, i) => m.tone(d, { freq: f, dur: 0.07, type: 'square', vol: 0.16, when: t + i * 0.05 })) },
   pickup_slip:  { ch: 'sfx', fn: (m, d, t) => [1800, 2400, 3000].forEach((f, i) => m.tone(d, { freq: f, slideTo: f * 0.8, dur: 0.22, vol: 0.15, when: t + i * 0.07 })) },
 
-  // Usar potenciador
   heavyUse: { ch: 'sfx', fn: (m, d, t) => { m.tone(d, { freq: 90, slideTo: 40, dur: 0.35, vol: 0.5, when: t }); m.noise(d, { dur: 0.15, vol: 0.2, hp: 200, when: t }); } },
   dash:     { ch: 'sfx', fn: (m, d, t) => { m.noise(d, { dur: 0.25, vol: 0.25, hp: 800, when: t }); m.tone(d, { freq: 300, slideTo: 900, dur: 0.15, type: 'sawtooth', vol: 0.1, when: t }); } },
   slipUse:  { ch: 'sfx', fn: (m, d, t) => m.tone(d, { freq: 1200, slideTo: 300, dur: 0.4, vol: 0.2, when: t }) },
 
-  // Vidas y final de partida
   loseLife: { ch: 'sfx', fn: (m, d, t) => { m.tone(d, { freq: 440, slideTo: 90, dur: 0.5, type: 'sawtooth', vol: 0.28, when: t }); m.noise(d, { dur: 0.3, vol: 0.2, hp: 300, when: t }); } },
   lose:     { ch: 'sfx', fn: (m, d, t) => [392, 349, 311, 262].forEach((f, i) => m.tone(d, { freq: f, dur: i === 3 ? 0.7 : 0.25, type: 'sawtooth', vol: 0.22, when: t + i * 0.22 })) },
   win:      { ch: 'sfx', fn: (m, d, t) => {
@@ -74,20 +62,18 @@ class AudioManager {
     this.load();
   }
 
-  // ---- Persistencia ----
   load() {
     try {
       const saved = JSON.parse(localStorage.getItem(STORAGE_KEY));
       if (saved) Object.keys(this.volumes).forEach((k) => {
         if (typeof saved[k] === 'number') this.volumes[k] = Math.min(Math.max(saved[k], 0), 1);
       });
-    } catch (e) { /* sin almacenamiento: se usan los valores por defecto */ }
+    } catch (e) {  }
   }
   save() {
-    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.volumes)); } catch (e) { /* ignorar */ }
+    try { localStorage.setItem(STORAGE_KEY, JSON.stringify(this.volumes)); } catch (e) {  }
   }
 
-  // ---- Contexto (los navegadores exigen un gesto del usuario) ----
   unlock() {
     if (!this.ctx) {
       const AC = window.AudioContext || window.webkitAudioContext;
@@ -112,7 +98,6 @@ class AudioManager {
     if (this.music.name && !this.music.timer) this.startScheduler();
   }
 
-  // ---- Volúmenes ----
   getVolume(ch) { return this.volumes[ch]; }
   setVolume(ch, v) {
     this.volumes[ch] = Math.min(Math.max(Math.round(v * 100) / 100, 0), 1);
@@ -128,17 +113,15 @@ class AudioManager {
     });
   }
 
-  // ---- Efectos ----
   play(name, opts = {}) {
     const def = SFX[name];
     if (!def || !this.ctx || this.ctx.state !== 'running') return;
     const now = this.ctx.currentTime;
-    if (now - (this.lastPlayed[name] || -1) < 0.03) return; // evita duplicados simultáneos
+    if (now - (this.lastPlayed[name] || -1) < 0.03) return;
     this.lastPlayed[name] = now;
     def.fn(this, this.channels[def.ch], now, opts);
   }
 
-  // ---- Música ----
   playMusic(name) {
     if (this.music.name === name && this.music.timer) return;
     this.music.name = name;
@@ -180,7 +163,6 @@ class AudioManager {
     }
   }
 
-  // ---- Primitivas ----
   tone(dest, { freq, slideTo, dur = 0.1, type = 'sine', vol = 0.3, when = 0, attack = 0.005 }) {
     const ctx = this.ctx;
     const osc = ctx.createOscillator();

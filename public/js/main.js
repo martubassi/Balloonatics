@@ -1,4 +1,5 @@
 import { GAME_WIDTH, GAME_HEIGHT, WORLD_GRAVITY } from './config.js';
+import { loadDisplayFont } from './typography.js';
 import { BootScene } from './scenes/BootScene.js';
 import { MenuScene } from './scenes/MenuScene.js';
 import { MapVoteScene } from './scenes/MapVoteScene.js';
@@ -15,17 +16,19 @@ const config = {
   parent: 'game',
   width: GAME_WIDTH,
   height: GAME_HEIGHT,
+  resolution: Math.min(window.devicePixelRatio || 1, 2),
+  render: { antialias: true, roundPixels: true },
   backgroundColor: '#1B1F3B',
   scale: { mode: Phaser.Scale.FIT, autoCenter: Phaser.Scale.CENTER_BOTH },
   physics: {
     default: 'arcade',
-    arcade: { gravity: { y: WORLD_GRAVITY }, fps: 120, debug: false } // debug: true para ver colisiones
+    arcade: { gravity: { y: WORLD_GRAVITY }, fps: 120, debug: false }
   },
   scene: [BootScene, MenuScene, MapVoteScene, GameScene, PauseScene, ResultScene, SettingsScene, ControlsScene, CreditsScene]
 };
 
-new Phaser.Game(config);
+await loadDisplayFont();
+export const game = new Phaser.Game(config);
 
-// El navegador solo permite audio tras un gesto del usuario: se activa con la primera pulsación/tecla
-// (en fase de captura, para que el primer clic ya suene)
+// El audio se desbloquea antes de que el primer botón lo reproduzca.
 ['pointerdown', 'keydown'].forEach((ev) => window.addEventListener(ev, () => audio.unlock(), true));

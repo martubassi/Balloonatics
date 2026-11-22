@@ -1,0 +1,15 @@
+{
+  "name": "balloonatics",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node scripts/serve.cjs",
+    "assets": "node scripts/prepare-assets.cjs",
+    "test": "node scripts/verify-runtime.cjs",
+    "test:browser": "node scripts/verify-art.cjs"
+  },
+  "devDependencies": {
+    "sharp": "0.35.5",
+    "playwright": "1.57.0"
+  }
+}

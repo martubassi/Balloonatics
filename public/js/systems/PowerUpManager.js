@@ -1,9 +1,6 @@
 import { POWERUP } from '../config.js';
 import { audio } from './AudioManager.js';
 
-// Cajas de potenciador: aparición, recogida y activación.
-// Globo pesado (plataformas aéreas, cada 20 s), Dash (centro, cada 5 golpes seguidos)
-// y Calzado antideslizante (plataformas inferiores, cada 25 s).
 export class PowerUpManager {
   constructor(scene, players, balloon, map) {
     this.map = map;
@@ -16,7 +13,6 @@ export class PowerUpManager {
     scene.physics.add.overlap(players, this.boxes, (player, box) => this.collect(player, box));
   }
 
-  // Solo se llama con la ronda activa
   update(delta) {
     this.timers.heavy += delta;
     this.timers.slip += delta;
@@ -46,7 +42,6 @@ export class PowerUpManager {
   }
 
   spawn(kind, x, y) {
-    // Como máximo una caja de cada tipo en el mapa
     if (this.boxes.getChildren().some((b) => b.kind === kind)) return;
     const box = this.boxes.create(x, y, `pu_${kind}`);
     box.kind = kind;
@@ -57,13 +52,12 @@ export class PowerUpManager {
   }
 
   collect(player, box) {
-    if (player.held) return; // un potenciador a la vez
+    if (player.held) return;
     player.held = box.kind;
-    audio.play(`pickup_${box.kind}`); // un sonido distinto por potenciador
+    audio.play(`pickup_${box.kind}`);
     box.destroy();
   }
 
-  // Tecla de "usar potenciador"
   use(player) {
     switch (player.held) {
       case 'heavy':
@@ -71,7 +65,7 @@ export class PowerUpManager {
         player.held = null;
         break;
       case 'slip':
-        this.players.find((p) => p !== player).makeSlippery(); // el portador conserva la tracción
+        this.players.find((p) => p !== player).makeSlippery();
         player.held = null;
         break;
       case 'dash':
@@ -81,7 +75,6 @@ export class PowerUpManager {
     }
   }
 
-  // Al terminar el punto: fuera cajas y se acaba el globo pesado
   clearField() {
     this.boxes.clear(true, true);
     this.balloon.clearHeavy();
