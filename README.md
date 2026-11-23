@@ -422,69 +422,56 @@ Figura 11. Pantalla con el logotipo del juego
 
 #### 7.1.2. Menú principal
 
-![Menú principal](imagenes-GDD/menú_principal.png)
+![Menú principal](imagenes-GDD/Main_Menu.png)
 
 
 Figura 12. Pantalla de menú principal 
 
 #### 7.1.3. Selección de mapa
 
-![Selección de mapa](imagenes-GDD/Selección_de_nivel.png)
+![Selección de mapa](imagenes-GDD/Map_Select.png)
 
 
 Figura 13. Pantalla de selector de mapas
 
-#### 7.1.4. Selector local y online
+#### 7.1.4. Gameplay
 
-![Selector local y online](imagenes-GDD/Selector_de_partida.png)
-
-
-Figura 14. Pantalla de selección de modo local/online
-
-#### 7.1.5. Gameplay
-
-![Gameplay](imagenes-GDD/gameplay.png)
+![Gameplay](imagenes-GDD/Gameplay_Screen.png)
 
 
 Figura 15. Pantalla de gameplay
 
-#### 7.1.6. Resultado
+#### 7.1.5. Resultado
 
-![Resultado](imagenes-GDD/resultado.png)
+![Resultado](imagenes-GDD/Victory_Screen.png)
 
 
 Figura 16. Pantalla de resultado
 
-#### 7.1.7. Pausa
+#### 7.1.6. Pausa
 
-![Pausa](imagenes-GDD/pausa.png)
+![Pausa](imagenes-GDD/Pause_Screen.png)
 
 
 Figura 17. Pantalla de pausa
 
-#### 7.1.8. Opciones
+#### 7.1.7. Opciones
 
-![Opciones](imagenes-GDD/opciones.png)
+![Opciones](imagenes-GDD/Settings_Screen.png)
 
 
 Figura 18. Pantalla de opciones
 
+#### 7.1.8. Ayuda
 
-![Audio y video](imagenes-GDD/audio_video.png)
-
-
-Figura 19. Pantalla de opciones
-
-#### 7.1.9. Salir
-
-![Salida](imagenes-GDD/salida.png)
+![Ayuda](imagenes-GDD/Help_Screen.png)
 
 
-Figura 20. Pantalla de salida
+Figura 19. Pantalla de ayuda
 
-#### 7.1.10. Créditos
+#### 7.1.9. Créditos
 
-![Créditos](imagenes-GDD/créditos.png)
+![Créditos](imagenes-GDD/Credits_Screen.png)
 
 
 Figura 21. Pantalla de créditos
