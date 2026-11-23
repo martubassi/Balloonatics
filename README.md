@@ -393,6 +393,7 @@ Los bocetos de los personajes se añadirán en el apartado
 | Fin del experimento  | Victoria/derrota | Jingle breve de fanfarria cómica para el vencedor y sonido de trombón caricaturesco para la derrota.                       | CC0 (dominio público) |
 
 ### 6.2. Efectos de sonido
+Los efectos de sonido se han generado mediante la herramienta web [jsfxr](https://sfxr.me/).
 
 | Efecto                 | Se reproduce cuando...                                                             |
 |:-----------------------|:-----------------------------------------------------------------------------------|
