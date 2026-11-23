@@ -398,11 +398,15 @@ Los bocetos de los personajes se añadirán en el apartado
 |:-----------------------|:-----------------------------------------------------------------------------------|
 | Salto                  | Se pulsa la tecla de salto.                                                        |
 | Golpe al globo         | El jugador colisiona con el globo.                                                 |
-| Recoger objeto         | El jugador entra en contacto con una caja de *power-up* o activa una bonificación. |
-| Botones de la interfaz | El cursor pasa sobre un botón o se hace clic.                                      |
-| Cuenta atrás           | Durante los tres segundos previos al inicio de la ronda.                           |
-| Explosión del globo    | El globo toca el suelo.                                         |
+| Recoger objeto         | El jugador entra en contacto con una caja de *power-up*.                           |
 | Activación de Dash     | Se consume una carga de impulso lateral.                                           |
+| Activación de Slippery | Se usa el *power-up* de Calzado antideslizante.                                    |
+| Activación de Heavy    | Se usa el *power-up* de Globo pesado.                                              |
+| Botones de la interfaz | El cursor pasa sobre un botón.                                                     |
+| Seleccionar            | El cursor clickea un botón.                                                        |
+| Cuenta atrás           | Durante los tres segundos previos al inicio de la ronda.                           |
+| Explosión del globo    | El globo toca el suelo.                                                            |
+
 
 ## 7. Interfaz y diagrama de flujo
 
