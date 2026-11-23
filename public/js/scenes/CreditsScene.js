@@ -21,7 +21,7 @@ export class CreditsScene extends Phaser.Scene {
   }
 
   createTeam() {
-    this.add.text(960, 242, 'UN JUEGO DEL EQUIPO BALLOONATICS', {
+    this.add.text(960, 242, 'UN JUEGO DEL EQUIPO COMPAÑÍA LEGÍTIMA', {
       fontFamily: 'Arial', fontSize: '26px', color: '#a9d9ec'
     }).setOrigin(0.5);
     CREDITS.forEach((member, i) => {

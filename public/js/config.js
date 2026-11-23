@@ -51,8 +51,8 @@ export const AUDIO = {
 };
 
 export const CREDITS = [
-  { name: 'Martina Bassi', role: 'Equipo de desarrollo' },
-  { name: 'Darío Ayala Alocón', role: 'Equipo de desarrollo' },
-  { name: 'Mateo González Falquina', role: 'Equipo de desarrollo' },
-  { name: 'Arturo de María García Díaz', role: 'Equipo de desarrollo' }
+  { name: 'Martina Bassi', role: 'Programador y Game Designer' },
+  { name: 'Darío Ayala Alocén', role: 'Programador Principal' },
+  { name: 'Mateo González Falquina', role: 'Productor y Encargado de Sonido' },
+  { name: 'Arturo de María García Díaz', role: 'Artista UI UX' }
 ];
