@@ -77,7 +77,7 @@ quien consiga agotar todas las vidas de su oponente.
 
 **Balloonatics** es un juego de plataformas competitivo en 2D donde dos
 jugadores se enfrentan para no ser los últimos en cometer un fallo con
-el globo. Si el globo toca el suelo o explota en el sector de un
+el globo. Si el globo toca el suelo en el sector de un
 jugador, este pierde una vida. La partida exige estrategia, anticipación
 de los movimientos del rival, saltos precisos y reflejos rápidos.
 
@@ -89,8 +89,8 @@ los juegos centrados en el combate directo, combina la dinámica del
 volleyball con el parkour en una arena llena de plataformas y paredes
 que permiten realizar saltos e intercepciones aéreas. Los jugadores
 deben golpear el globo hacia el terreno rival y anticiparse a los
-movimientos del oponente para provocar sus errores. Cada caída o
-explosión del globo en el sector de un jugador le hace perder una vida,
+movimientos del oponente para provocar sus errores. Cada caída
+del globo en el sector de un jugador le hace perder una vida,
 convirtiendo cada intercambio en una lucha por la supervivencia hasta
 que uno de los dos se queda sin vidas.
 
@@ -125,7 +125,7 @@ que uno de los dos se queda sin vidas.
 
 El objetivo de cada jugador es mantener el globo en el aire, golpeándolo
 hacia el terreno rival para obligar al contrincante a cometer un fallo y
-arrebatarle todas sus vidas. Cuando el globo cae o explota en el sector
+arrebatarle todas sus vidas. Cuando el globo toca el suelo en el sector
 de un jugador, este pierde una vida. Gana quien agote todas las vidas de
 su oponente mientras conserve al menos una.
 
@@ -146,7 +146,7 @@ su oponente mientras conserve al menos una.
 
 - **Aceleración progresiva por impacto:** El multiplicador de velocidad
   del globo comienza en 1x y aumenta en +0,2x con cada golpe hasta un
-  máximo de 10x. Si el globo cae al suelo o explota, la velocidad se
+  máximo de 10x. Si el globo cae al suelo, la velocidad se
   reinicia a su valor base. Esto reduce el tiempo de reacción y obliga a
   anticipar los rebotes y optimizar las rutas.
 - **Movimiento y control de plataforma:** Los personajes cuentan con
@@ -159,7 +159,7 @@ su oponente mientras conserve al menos una.
   un salto justo después de abandonar el borde de una plataforma.
   Funciona de manera independiente para cada jugador.
 - **Condición de victoria y derrota:** Cuando el globo toca el suelo,
-- el jugador cuyo sector provoca el fallo pierde una
+  el jugador cuyo sector provoca el fallo pierde una
   vida. Gana la partida quien agote todas las vidas del contrincante
   conservando las propias.
 
@@ -199,12 +199,12 @@ Figura 1. Coyote Timing en Celeste
   techos, modificando su trayectoria según el ángulo y la velocidad del
   impacto. La fricción de los personajes permite controlar las frenadas
   y los cambios de dirección. El globo, si colisiona con un jugador, no
-  puede volver a su campo, si el rival no ha colisionado con él.
+  puede volver a su campo si el rival no ha colisionado con él.
 - **Progresión de la dificultad:** Cada golpe consecutivo aumenta el
   multiplicador de velocidad del globo en +0,2x, desde 1,0x hasta un
   máximo de 10,0x. Esto reduce progresivamente el tiempo de reacción y
-  exige anticipar las trayectorias y los rebotes. Si el globo cae o
-  explota, el multiplicador vuelve a su valor inicial.
+  exige anticipar las trayectorias y los rebotes. Si el globo cae, el
+  multiplicador vuelve a su valor inicial.
 
 ### 3.5. Escenario
 
@@ -233,7 +233,7 @@ científico, y Beto, el conserje todoterreno del laboratorio.
 
 El sistema de contención activa un protocolo experimental de
 supervivencia: el globo debe permanecer en el aire y ser desviado hacia
-el sector opuesto antes de que toque el suelo o detone. Cada fallo
+el sector opuesto antes de que toque el suelo. Cada fallo
 compromete la seguridad del sector correspondiente. Sin posibilidad de
 escapar ni tiempo para buscar otra solución, Pip y Beto se ven obligados
 a competir por su supervivencia, utilizando las plataformas, las paredes
