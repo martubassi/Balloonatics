@@ -401,7 +401,7 @@ Los bocetos de los personajes se añadirán en el apartado
 | Recoger objeto         | El jugador entra en contacto con una caja de *power-up* o activa una bonificación. |
 | Botones de la interfaz | El cursor pasa sobre un botón o se hace clic.                                      |
 | Cuenta atrás           | Durante los tres segundos previos al inicio de la ronda.                           |
-| Explosión del globo    | El globo toca el suelo o la zona de fallo.                                         |
+| Explosión del globo    | El globo toca el suelo.                                         |
 | Activación de Dash     | Se consume una carga de impulso lateral.                                           |
 
 ## 7. Interfaz y diagrama de flujo
