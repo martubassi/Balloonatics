@@ -439,42 +439,42 @@ Figura 13. Pantalla de selector de mapas
 ![Gameplay](imagenes-GDD/Gameplay_Screen.png)
 
 
-Figura 15. Pantalla de gameplay
+Figura 14. Pantalla de gameplay
 
 #### 7.1.5. Resultado
 
 ![Resultado](imagenes-GDD/Victory_Screen.png)
 
 
-Figura 16. Pantalla de resultado
+Figura 15. Pantalla de resultado
 
 #### 7.1.6. Pausa
 
 ![Pausa](imagenes-GDD/Pause_Screen.png)
 
 
-Figura 17. Pantalla de pausa
+Figura 16. Pantalla de pausa
 
 #### 7.1.7. Opciones
 
 ![Opciones](imagenes-GDD/Settings_Screen.png)
 
 
-Figura 18. Pantalla de opciones
+Figura 17. Pantalla de opciones
 
 #### 7.1.8. Ayuda
 
 ![Ayuda](imagenes-GDD/Help_Screen.png)
 
 
-Figura 19. Pantalla de ayuda
+Figura 18. Pantalla de ayuda
 
 #### 7.1.9. Créditos
 
 ![Créditos](imagenes-GDD/Credits_Screen.png)
 
 
-Figura 21. Pantalla de créditos
+Figura 19. Pantalla de créditos
 
 ### 7.2. Diagrama de flujo
 
