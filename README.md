@@ -53,7 +53,7 @@ quien consiga agotar todas las vidas de su oponente.
   - [5.6. Bocetos de personajes y
     pantallas](#56-bocetos-de-personajes-y-pantallas)
 - [6. Sonido](#6-sonido)
-  - [6.1. Música](#61-música)
+  - [6.1. Banda sonora](#61-banda-sonora)
   - [6.2. Efectos de sonido](#62-efectos-de-sonido)
 - [7. Interfaz y diagrama de flujo](#7-interfaz-y-diagrama-de-flujo)
   - [7.1. Pantallas](#71-pantallas)
@@ -384,24 +384,13 @@ Los bocetos de los personajes se añadirán en el apartado
 
 ## 6. Sonido
 
-### 6.1. Música
+### 6.1. Banda sonora
 
-Las pistas se reproducen desde archivos MP3 en bucle, con volumen independiente
-en ajustes. Para incorporarlas, se guardan en `public/assets/audio/` y se asignan
-sus rutas en `AUDIO.music`, dentro de `public/js/config.js`:
-
-```js
-music: {
-  menu: 'assets/audio/menu.mp3',
-  game: 'assets/audio/gameplay.mp3',
-  results: 'assets/audio/results.mp3'
-},
-```
-
-Las rutas permanecen en `null` hasta disponer de los archivos. El menú y la
-selección de mapa comparten una pista; la partida utiliza otra, y los podios
-tienen su propio tema. En pausa y sus ajustes se mantiene la pista de la partida.
-Si una pista no carga, el juego continúa sin ella.
+| Pista                | Escena           | Estilo/ambiente                                                                                                            | Fuente/licencia       |
+|:---------------------|:-----------------|:---------------------------------------------------------------------------------------------------------------------------|:----------------------|
+| Tema del laboratorio | Menú principal   | Jazz/funk retro cómico con sintetizadores ligeros, tempo medio (110 BPM), distendido y alegre.                             | Google Flow Music — [Condiciones de Google](https://policies.google.com/terms) y [política de IA generativa](https://policies.google.com/terms/generative-ai/use-policy) |
+| Helio frenético      | Partida          | Electro-swing acelerado con percusión enérgica (140 BPM), aumentando sutilmente de tono según sube la velocidad del globo. | Google Flow Music — [Condiciones de Google](https://policies.google.com/terms) y [política de IA generativa](https://policies.google.com/terms/generative-ai/use-policy)             |
+| Fin del experimento  | Victoria/derrota | Jingle breve de fanfarria cómica para el vencedor y sonido de trombón caricaturesco para la derrota.                       | Google Flow Music — [Condiciones de Google](https://policies.google.com/terms) y [política de IA generativa](https://policies.google.com/terms/generative-ai/use-policy) |
 
 ### 6.2. Efectos de sonido
 Los efectos de sonido se han generado mediante la herramienta web [jsfxr](https://sfxr.me/).
