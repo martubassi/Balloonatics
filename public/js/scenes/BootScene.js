@@ -1,3 +1,4 @@
+import { audio } from '../systems/AudioManager.js';
 import { preloadArtwork, fitTexture } from '../assets.js';
 import { MAPS } from '../maps.js';
 import { createUiTextures } from '../uiTextures.js';
@@ -12,16 +13,21 @@ export class BootScene extends Phaser.Scene {
     }).setOrigin(0.5);
     this.load.on('progress', n => this.loadingText.setText(`Cargando laboratorio… ${Math.round(n * 100)}%`));
     this.failedAssets = [];
-    this.load.on('loaderror', file => this.failedAssets.push(file.key));
+    this.load.on('loaderror', file => {
+      if (file.key.startsWith('music_')) console.warn('Pista de música no disponible:', file.key);
+      else this.failedAssets.push(file.key);
+    });
     preloadArtwork(this);
+    audio.preload(this);
   }
 
   create() {
     if (this.failedAssets.length) {
-      this.loadingText.setText('No se ha podido cargar el arte. Recarga la página.');
+      this.loadingText.setText('No se han podido cargar los recursos. Recarga la página.');
       console.error('Recursos no encontrados:', this.failedAssets);
       return;
     }
+    audio.init(this.sound);
     fitTexture(this, 'pip', 64, 96);
     fitTexture(this, 'beto', 64, 96);
     fitTexture(this, 'balloon', 80, 80, true);

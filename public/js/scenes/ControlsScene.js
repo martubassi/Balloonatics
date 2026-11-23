@@ -23,7 +23,6 @@ export class ControlsScene extends Phaser.Scene {
 
   create() {
     createBackdrop(this, 0.87);
-    audio.playMusic('menu');
     this.createHeader();
     this.createPlayerCards();
     this.createPowerUps();

@@ -10,7 +10,6 @@ export class CreditsScene extends Phaser.Scene {
   create() {
     createBackdrop(this, 0.86);
     createWindow(this, 'CRÉDITOS', 1480, 500);
-    audio.playMusic('menu');
     this.createTeam();
     this.createFooter();
     createButton(this, 960, 995, 'Volver', () => this.scene.start('MenuScene'), true, 48);

@@ -14,9 +14,9 @@ export class MapVoteScene extends Phaser.Scene {
   constructor() { super('MapVoteScene'); }
 
   create() {
+    audio.playMusic('menu');
     createBackdrop(this);
     this.resolved = false;
-    audio.playMusic('menu');
 
     this.add.text(GAME_WIDTH / 2, 110, 'ELIGE EL MAPA', {
       fontFamily: FONT_DISPLAY, fontSize: '82px', fontStyle: 'bold', color: '#F5C518',

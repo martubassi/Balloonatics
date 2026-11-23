@@ -47,6 +47,11 @@ export const KEY_LABEL = { ShiftLeft: 'Shift izq.', ShiftRight: 'Shift der.' };
 
 export const AUDIO = {
   defaults: { music: 0.6, sfx: 0.8, ui: 0.8 },
+  music: {
+    menu: 'assets/audio/menu.mp3',
+    game: 'assets/audio/gameplay.mp3',
+    results: 'assets/audio/results.mp3'
+  },
   stepEvery: 280
 };
 

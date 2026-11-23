@@ -34,7 +34,6 @@ export class SettingsScene extends Phaser.Scene {
   create() {
     createBackdrop(this, 0.84);
     this.windowLayout = createWindow(this, 'AJUSTES', 1440, 510);
-    audio.playMusic('menu');
     this.dragging = null;
     this.selected = 0;
 

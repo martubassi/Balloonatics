@@ -10,13 +10,10 @@ import { Player } from '../entities/Player.js';
 import { Balloon } from '../entities/Balloon.js';
 import { audio } from '../systems/AudioManager.js';
 import { PowerUpManager } from '../systems/PowerUpManager.js';
-import { CommandProcessor } from '../commands/CommandProcessor.js';
-import { MoveCommand, JumpCommand, JumpReleaseCommand, DropCommand, UsePowerUpCommand } from '../commands/Commands.js';
 
 export class GameScene extends Phaser.Scene {
   constructor() {
     super('GameScene');
-    this.commandProcessor = new CommandProcessor();
   }
 
   init(data) {
@@ -67,14 +64,11 @@ export class GameScene extends Phaser.Scene {
 
   createPlayers() {
     const y = FLOOR_TOP - 48;
-    this.player1 = new Player(this, { id: 'p1', name: 'Pip', texture: 'pip', x: 480, y, rivalDirection: 1 });
-    this.player2 = new Player(this, { id: 'p2', name: 'Beto', texture: 'beto', x: 1440, y, rivalDirection: -1 });
+    this.player1 = new Player(this, { name: 'Pip', texture: 'pip', x: 480, y, rivalDirection: 1 });
+    this.player2 = new Player(this, { name: 'Beto', texture: 'beto', x: 1440, y, rivalDirection: -1 });
 
     this.player1.rival = this.player2;
     this.player2.rival = this.player1;
-
-    this.commandProcessor.players.clear();
-    [this.player1, this.player2].forEach((p) => this.commandProcessor.players.set(p.id, p));
   }
 
   createColliders() {
@@ -108,7 +102,7 @@ export class GameScene extends Phaser.Scene {
       if (!this.sys.isActive()) return;
       const b = this.bindings.find((x) => x.useKey === event.code);
       if (b && !event.repeat && this.roundActive) {
-        this.commandProcessor.process(new UsePowerUpCommand(b.player));
+        this.powerUps.use(b.player);
       }
     };
     kb.on('keydown', usePowerUp);
@@ -190,18 +184,18 @@ export class GameScene extends Phaser.Scene {
       const dir = (b.keys.right.isDown ? 1 : 0) - (b.keys.left.isDown ? 1 : 0);
       if (dir !== b.dir) {
         b.dir = dir;
-        this.commandProcessor.process(new MoveCommand(b.player, dir));
+        b.player.move(dir);
       }
       const drop = b.keys.down.isDown;
       if (drop !== b.drop) {
         b.drop = drop;
-        this.commandProcessor.process(new DropCommand(b.player, drop));
+        b.player.drop(drop);
       }
       if (Phaser.Input.Keyboard.JustDown(b.keys.up)) {
-        this.commandProcessor.process(new JumpCommand(b.player));
+        b.player.jump(this.time.now);
       }
       if (Phaser.Input.Keyboard.JustUp(b.keys.up)) {
-        this.commandProcessor.process(new JumpReleaseCommand(b.player));
+        b.player.releaseJump();
       }
     });
   }

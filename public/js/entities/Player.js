@@ -3,7 +3,7 @@ import { audio } from '../systems/AudioManager.js';
 import { SpriteMotion } from './SpriteMotion.js';
 
 export class Player extends Phaser.Physics.Arcade.Sprite {
-  constructor(scene, { id, name, texture, x, y, rivalDirection }) {
+  constructor(scene, { name, texture, x, y, rivalDirection }) {
     super(scene, x, y, texture);
     scene.add.existing(this);
     scene.physics.add.existing(this);
@@ -21,10 +21,8 @@ export class Player extends Phaser.Physics.Arcade.Sprite {
       this.shadow.destroy();
     });
 
-    this.id = id;
     this.displayName = name;
     this.rivalDirection = rivalDirection;
-    this.authority = 'LOCAL';
     this.spawn = { x, y };
     this.lives = PLAYER.lives;
 

@@ -17,8 +17,7 @@ export class ResultScene extends Phaser.Scene {
 
   create(data) {
     createBackdrop(this, 0.88);
-    audio.stopMusic();
-    audio.play('win');
+    audio.playMusic('results');
     this.placements = resultPlacements(data);
     this.createHeader(this.placements[0]);
     this.createConfetti();
